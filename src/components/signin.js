@@ -13,9 +13,9 @@ class SignIn extends Component {
             localStorageSetItem("userId", 0)
         }
     }
-state={
-    onSignin:false
-}
+    state = {
+        onSignin: false
+    }
 
     onUserNameChange = (event) => {
         this.props.userNameChange(event.target.value)
@@ -25,14 +25,17 @@ state={
         this.props.passwordChange(event.target.value)
     }
 
-    onSignin = () => {
+    onSignin = async () => {
         let user = {
             userName: this.props.userName,
             password: this.props.password,
         }
+          await  this.setState({ onSignin: verifyUser(user) })
+            if(this.state.onSignin)
+            alert("Signin successful")
+            else
+            alert("signin failed")
 
-      //   onSignin = verifyUser(user);
-       this.setState({onSignin: verifyUser(user)})
     }
 
     render() {
@@ -43,11 +46,11 @@ state={
                 <br /><br />
                 PASSWORD : <input type="password" onChange={this.onPasswordChange} />
                 <br /><br />
-              
-                    <Link to="/signup">Don't have a account? Register here</Link>
-                    {this.state.onSignin?<Redirect></Redirect>:<Redirect></Redirect>}
-              
-                <br></br><br></br>    <button onClick={this.onSignin}>SIGNIN</button>
+
+                <Link to="/signup">Don't have a account? Register here</Link>
+                {this.state.onSignin ? <Redirect to='/accounts'></Redirect> : <Redirect to='/login'></Redirect>}
+                <br></br><br></br>
+                <button onClick={this.onSignin}>SIGNIN</button>
 
             </div>
         );

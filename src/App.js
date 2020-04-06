@@ -8,13 +8,22 @@ import {
 import Login from './components/signin';
 import {localStorageGetItem , localStorageSetItem} from './services/utils';
 import Signup from './components/Signup';
-
+import AddAccount from './components/addAccount'
+import Accounts from './components/accounts'
 class App extends Component {
 
   componentWillMount(){
-    let usersStorageItem = localStorageGetItem('users');
-    if(!usersStorageItem){
+    let users = localStorageGetItem('users');
+    if(!users){
      localStorageSetItem('users', []);
+    }
+    let transactions = localStorage.getItem('transactions');
+    if(!transactions){
+     localStorage.setItem('transactions', JSON.stringify([]));
+    }
+    let accounts = localStorage.getItem('accounts');
+    if(!accounts){
+     localStorage.setItem('accounts',JSON.stringify([]));
     }
   }
 
@@ -25,6 +34,8 @@ class App extends Component {
       <Switch>
           <Route exact path='/login'><Login /></Route>
           <Route exact path='/signup'><Signup></Signup></Route>
+          <Route exact path='/accounts'><Accounts></Accounts></Route>
+          <Route exact path='/addaccount'><AddAccount></AddAccount></Route>
           </Switch>
        
       </div>
