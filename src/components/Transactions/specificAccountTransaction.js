@@ -2,11 +2,12 @@ import React from 'react'
 import { deleteTransaction,getTransactionByAccountName } from '../../services/transactions'
 import { Redirect, Link } from 'react-router-dom'
 class TransactionDisplay extends React.Component {
-    // handleDelete = async () => {
-    //     await deleteTransaction(this.props.children.transactionId)
-    //     this.props.onDelete()
+    handleDelete = async (transactionId) => {
+        console.log(transactionId)
+        await deleteTransaction(transactionId)
+        //this.props.onDelete()
 
-    // }
+    }
     render() {
         let transactions=getTransactionByAccountName()
         return (
@@ -19,8 +20,8 @@ class TransactionDisplay extends React.Component {
                 <div> {obj.date}</div>
                 <div> {obj.amount}</div>
                 <div>{obj.accountId}</div>
-                   <button onClick={this.handleDelete}>delete transaction</button>
-                   {/* <Link to={`/edittransaction/${this.props.children.transactionId}`}>edit transaction</Link> */}
+                   <button onClick={()=>this.handleDelete(obj.transactionId)}>delete transaction</button>
+                    <Link to={`/edittransaction/${obj.transactionId}`}>edit transaction</Link> 
                </div>
             })}
            </div>
