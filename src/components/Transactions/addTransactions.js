@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import { addTransaction } from '../../services/transactions'
+import { addTransaction,editTransaction } from '../../services/transactions'
 class Accounts extends React.Component {
     state = {
         transactionType: '',
@@ -24,11 +24,16 @@ class Accounts extends React.Component {
             date: this.state.date,
             accountName: this.state.accountName
         }
-        let onAddTransaction = addTransaction(transaction)
-        if (onAddTransaction)
-            await this.setState({ addedTransaction: true })
-        else
-            await this.setState({ addedTransaction: false })
+        if (window.location.pathname == '/addtransaction') {
+            let onAddTransaction = addTransaction(transaction)
+            if (onAddTransaction)
+                await this.setState({ addedTransaction: true })
+            else
+                await this.setState({ addedTransaction: false })
+         }
+        // else {
+        //     let onEditTransaction = editTransaction(transaction)
+        // }
     }
     handleTransactionType = (e) => {
         this.setState({ transactionType: e.target.value })

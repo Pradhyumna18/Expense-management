@@ -1,19 +1,22 @@
 import React from 'react'
-import {deleteTransaction} from '../../services/transactions'
+import { deleteTransaction } from '../../services/transactions'
+import { Redirect, Link } from 'react-router-dom'
 class TransactionDisplay extends React.Component {
-    handleDelete=()=>
-    [
-        deleteTransaction(this.props.children.transactionId)
-    ]
+    handleDelete = async () => {
+        await deleteTransaction(this.props.children.transactionId)
+        this.props.onDelete()
+
+    }
     render() {
         return (
-            <div style={{border:"black"}}>
-                {this.props.children.transactionType}<br></br><br></br>
-                {this.props.children.description}<br></br><br></br>
-                {this.props.children.date}<br></br><br></br>
-                {this.props.children.amount}<br></br><br></br>
-                {this.props.children.accountId}<br></br><br></br>
-                <button onClick={this.handleDelete}>delete</button>
+            <div style={{ height: "50px", width: "75%", justifyContent: "space-around", display: "flex", border: "1px solid" ,margin:"10px"}}>
+             <div>   {this.props.children.transactionType}</div>
+             <div> {this.props.children.description}</div>
+             <div> {this.props.children.date}</div>
+             <div> {this.props.children.amount}</div>
+             <div>{this.props.children.accountId}</div>
+                <button onClick={this.handleDelete}>delete transaction</button>
+                <Link to={`/edittransaction/${this.props.children.transactionId}`}>edit transaction</Link>
             </div>
         )
     }

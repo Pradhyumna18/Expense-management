@@ -8,8 +8,8 @@ import {
 import Login from './components/signin';
 import { localStorageGetItem, localStorageSetItem } from './services/utils';
 import Signup from './components/Signup';
-import AddAccount from './components/addAccount'
-import Accounts from './components/accounts'
+import AddAccount from './components/Accounts/addAccount'
+import Accounts from './components/Accounts/accounts'
 import AddTransaction from './components/Transactions/addTransactions'
 class App extends Component {
 
@@ -41,6 +41,8 @@ class App extends Component {
           <Route exact path='/accounts'><Accounts /></Route>
           <Route exact path='/addaccount'><AddAccount /></Route>
           <Route exact path='/addtransaction'><AddTransaction/></Route>
+          <Route  path='/edittransaction'><AddTransaction></AddTransaction></Route>
+          
 
         </Switch>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect,Link } from 'react-router-dom'
-import {addAccount} from '../services/accounts'
+import {addAccount} from '../../services/accounts'
 class Accounts extends React.Component {
     state={
         accountName:'',

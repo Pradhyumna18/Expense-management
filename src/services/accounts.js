@@ -24,4 +24,14 @@ export const addAccount = (accountName) => {
     return false
 
 } 
+export const getAccounts = () => {
+    let accounts = JSON.parse(localStorage.getItem('accounts'));
+    let payload=jwt.decode(JSON.parse(localStorage.getItem('token')));
+    let userAccounts = accounts.map(obj => {
+    if(obj.userId === payload.userId){
+    return obj;
+    }
+    })
+    return userAccounts ;
+    }
 //: [ { accountId , accountName , accountBalance , userId } ]
