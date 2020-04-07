@@ -20,6 +20,7 @@ class Accounts extends React.Component {
     }
     render() {
         let transactions=getTransactions()
+        console.log(transactions)
         let accounts=getAccounts()
         console.log(window.location.pathname)
         return (

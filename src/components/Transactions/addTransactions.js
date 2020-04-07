@@ -24,16 +24,16 @@ class Accounts extends React.Component {
             date: this.state.date,
             accountName: this.state.accountName
         }
-        if (window.location.pathname == '/addtransaction') {
+       if (window.location.pathname == '/addtransaction') {
             let onAddTransaction = addTransaction(transaction)
             if (onAddTransaction)
                 await this.setState({ addedTransaction: true })
             else
                 await this.setState({ addedTransaction: false })
          }
-        // else {
-        //     let onEditTransaction = editTransaction(transaction)
-        // }
+        else {
+            let onEditTransaction = editTransaction(transaction)
+        }
     }
     handleTransactionType = (e) => {
         this.setState({ transactionType: e.target.value })
@@ -59,7 +59,7 @@ class Accounts extends React.Component {
                 <input type="text" placeholder="Account Name" onChange={this.handleAccountName}></input>
                 <input type="text" placeholder="Date" onChange={this.handleDate}></input>
                 <button onClick={this.handleAddTransaction}>Add Transaction</button>
-                {this.state.addedTransaction ? <Redirect to='/accounts'></Redirect> : <Redirect to='/addtransaction'></Redirect>}
+                {/* {this.state.addedTransaction ? <Redirect to='/accounts'></Redirect> : <Redirect to='/accounts'></Redirect>}  */}
             </div>
         )
     }
