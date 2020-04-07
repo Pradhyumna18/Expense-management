@@ -11,6 +11,7 @@ import Signup from './components/Signup';
 import AddAccount from './components/Accounts/addAccount'
 import Accounts from './components/Accounts/accounts'
 import AddTransaction from './components/Transactions/addTransactions'
+import SpecificAccountTransaction from './components/Transactions/specificAccountTransaction'
 class App extends Component {
 
   componentWillMount() {
@@ -42,6 +43,7 @@ class App extends Component {
           <Route exact path='/addaccount'><AddAccount /></Route>
           <Route exact path='/addtransaction'><AddTransaction/></Route>
           <Route  path='/edittransaction'><AddTransaction></AddTransaction></Route>
+          <Route path='/specificAccountTransactions'><SpecificAccountTransaction></SpecificAccountTransaction> </Route>
           
 
         </Switch>

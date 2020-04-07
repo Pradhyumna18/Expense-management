@@ -52,6 +52,18 @@ export const getTransactions = () => {
     })
     return userTransactions;
 }
+export const getTransactionByAccountName = () => {
+    let transactions = JSON.parse(localStorage.getItem("transactions"));
+    let accounts=JSON.parse(localStorage.getItem("accounts"));
+    let accountIndex = accounts.findIndex(item => {
+        return item.accountName === window.location.pathname.substr(29)
+    })
+ let transactionByAccountName=transactions.map(obj=>{
+     if(obj.accountId==accounts[accountIndex].accountId)
+     return obj
+ })
+    return transactionByAccountName;
+}
 
 
 export const deleteTransaction = (transactionId) => {

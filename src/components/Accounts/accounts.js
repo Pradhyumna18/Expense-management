@@ -6,8 +6,9 @@ import {getAccounts} from '../../services/accounts'
 import './accounts.css'
 class Accounts extends React.Component {
     state={
-        onDelete:false
-    }
+        onDelete:false,
+        divClicked:"",
+        }
      componentWillMount() {
         let accountId = localStorage.getItem("accountId");
         if (!accountId) {
@@ -18,6 +19,11 @@ class Accounts extends React.Component {
     {
         this.setState({onDelete:true})
     }
+    handleDivClicked = (name) => {
+        this.setState({
+        divClicked:name,
+        })
+        }
     render() {
         let transactions=getTransactions()
         console.log(transactions)
@@ -31,7 +37,7 @@ class Accounts extends React.Component {
                     </div>
                     <div style={{ overflowX: "auto", display: "flex" }}>
                         {accounts.map(obj => {
-                            return (<div className="AccountCard">
+                            return (<div className="AccountCard" onClick={()=>{this.handleDivClicked(obj.accountName)}}>
                                 {obj.accountName}
                                 <b style={{ fontSize: "larger" }}> ₹ {obj.accountBalance} </b>
                             </div>)
@@ -52,6 +58,7 @@ class Accounts extends React.Component {
                     return <TransactionDisplay onDelete={this.handleDelete}>{item}</TransactionDisplay>
                 })}
                 </div>
+                {this.state.divClicked ? <Redirect to={`/specificAccountTransactions/${this.state.divClicked}`} /> : null}
             </div>
         )
     }
