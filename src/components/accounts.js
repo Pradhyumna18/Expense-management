@@ -11,6 +11,7 @@ class Accounts extends React.Component {
         return (
             <div>
                 <Link to='/addaccount'>Add Account</Link> 
+                <Link to='/addtransaction'>Add Transaction</Link>  
             </div>
         )
     }

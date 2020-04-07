@@ -6,38 +6,44 @@ import {
   Switch
 } from 'react-router-dom';
 import Login from './components/signin';
-import {localStorageGetItem , localStorageSetItem} from './services/utils';
+import { localStorageGetItem, localStorageSetItem } from './services/utils';
 import Signup from './components/Signup';
 import AddAccount from './components/addAccount'
 import Accounts from './components/accounts'
+import AddTransaction from './components/Transactions/addTransactions'
 class App extends Component {
 
-  componentWillMount(){
+  componentWillMount() {
     let users = localStorageGetItem('users');
-    if(!users){
-     localStorageSetItem('users', []);
+    if (!users) {
+      localStorageSetItem('users', []);
     }
     let transactions = localStorage.getItem('transactions');
-    if(!transactions){
-     localStorage.setItem('transactions', JSON.stringify([]));
+    if (!transactions) {
+      localStorage.setItem('transactions', JSON.stringify([]));
     }
     let accounts = localStorage.getItem('accounts');
-    if(!accounts){
-     localStorage.setItem('accounts',JSON.stringify([]));
+    if (!accounts) {
+      localStorage.setItem('accounts', JSON.stringify([]));
     }
   }
 
   render() {
     return (
       <div className="App">
+
         <Redirect from="/" to="/login" />
-      <Switch>
+
+        <Switch>
+
           <Route exact path='/login'><Login /></Route>
-          <Route exact path='/signup'><Signup></Signup></Route>
-          <Route exact path='/accounts'><Accounts></Accounts></Route>
-          <Route exact path='/addaccount'><AddAccount></AddAccount></Route>
-          </Switch>
-       
+          <Route exact path='/signup'><Signup /></Route>
+          <Route exact path='/accounts'><Accounts /></Route>
+          <Route exact path='/addaccount'><AddAccount /></Route>
+          <Route exact path='/addtransaction'><AddTransaction/></Route>
+
+        </Switch>
+
       </div>
     );
   }
