@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import { addTransaction,editTransaction } from '../../services/transactions'
+import { addTransaction, editTransaction } from '../../services/transactions'
 class Accounts extends React.Component {
     state = {
         transactionType: '',
@@ -8,6 +8,7 @@ class Accounts extends React.Component {
         amount: 0,
         date: '',
         addedTransaction: false,
+        editedTransaction: false,
         accountName: ''
     }
     componentWillMount() {
@@ -24,15 +25,16 @@ class Accounts extends React.Component {
             date: this.state.date,
             accountName: this.state.accountName
         }
-       if (window.location.pathname == '/addtransaction') {
+        if (window.location.pathname == '/addtransaction') {
             let onAddTransaction = addTransaction(transaction)
             if (onAddTransaction)
                 await this.setState({ addedTransaction: true })
-            else
-                await this.setState({ addedTransaction: false })
-         }
+            await this.setState({ addedTransaction: false })
+        }
         else {
             let onEditTransaction = editTransaction(transaction)
+            await this.setState({ editedTransaction: true })
+            await this.setState({ editedTransaction: false })
         }
     }
     handleTransactionType = (e) => {
@@ -51,6 +53,9 @@ class Accounts extends React.Component {
         this.setState({ date: e.target.value })
     }
     render() {
+        let redirect = ''
+        if (this.state.addedTransaction || this.state.editedTransaction)
+            redirect = <Redirect to='/accounts'></Redirect>
         return (
             <div>
                 <input type="text" placeholder="Transaction Type" onChange={this.handleTransactionType}></input>
@@ -59,7 +64,7 @@ class Accounts extends React.Component {
                 <input type="text" placeholder="Account Name" onChange={this.handleAccountName}></input>
                 <input type="text" placeholder="Date" onChange={this.handleDate}></input>
                 <button onClick={this.handleAddTransaction}>Add Transaction</button>
-                {/* {this.state.addedTransaction ? <Redirect to='/accounts'></Redirect> : <Redirect to='/accounts'></Redirect>}  */}
+                {redirect}
             </div>
         )
     }
