@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { verifyUser } from '../services/users';
-import { localStorageSetItem, localStorageGetItem } from '../services/utils';
+import { createUser } from '../../services/users';
+import { localStorageSetItem, localStorageGetItem } from '../../services/utils';
 import { Switch, Route, Link, BrowserRouter, Redirect } from 'react-router-dom';
-import Signup from './Signup'
-
-class SignIn extends Component {
+class Signup extends Component {
 
     componentWillMount() {
         let userIdStorageItem = localStorageGetItem("userId");
@@ -14,9 +12,8 @@ class SignIn extends Component {
         }
     }
     state = {
-        onSignin: false
+        onSignup: false
     }
-
     onUserNameChange = (event) => {
         this.props.userNameChange(event.target.value)
     }
@@ -25,19 +22,21 @@ class SignIn extends Component {
         this.props.passwordChange(event.target.value)
     }
 
-    onSignin = async () => {
+    onSignup = async () => {
+        let userId = localStorageGetItem("userId");
         let user = {
+            userId: ++(userId),
             userName: this.props.userName,
-            password: this.props.password,
+            password: this.props.password
         }
-          await  this.setState({ onSignin: verifyUser(user) })
-            if(this.state.onSignin)
-            alert("Signin successful")
-            else
-            alert("signin failed")
+
+        await this.setState({ onSignup: createUser(user) })
+        if (this.state.onSignup)
+            alert("Signup successful")
+        else
+            alert("signup failed")
 
     }
-
     render() {
         return (
             <div>
@@ -46,12 +45,9 @@ class SignIn extends Component {
                 <br /><br />
                 PASSWORD : <input type="password" onChange={this.onPasswordChange} />
                 <br /><br />
-
-                <Link to="/signup">Don't have a account? Register here</Link>
-                {this.state.onSignin ? <Redirect to='/accounts'></Redirect> : <Redirect to='/login'></Redirect>}
-                <br></br><br></br>
-                <button onClick={this.onSignin}>SIGNIN</button>
-
+                <Link to="/login">Have an account? Signin</Link>
+                <button onClick={this.onSignup}>SIGNUP</button>
+                {this.state.onSignup ? <Redirect to='/login'></Redirect> : <Redirect to='/signup'></Redirect>}
             </div>
         );
     }
@@ -81,4 +77,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

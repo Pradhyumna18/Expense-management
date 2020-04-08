@@ -5,7 +5,7 @@ export const addTransaction = (transaction) => {
     let accounts = JSON.parse(localStorage.getItem('accounts'))
     let payload = jwt.decode(JSON.parse(localStorage.getItem("token")))
     let accountIndex = accounts.findIndex(item => {
-        return item.accountName === transaction.accountName
+        return item.accountName === transaction.accountName && item.userId==payload.userId
     })
     let transacId = JSON.parse(localStorage.getItem('transactionId'))
     transacId++
@@ -45,24 +45,45 @@ export const addTransaction = (transaction) => {
 export const getTransactions = () => {
     let payload = jwt.decode(JSON.parse(localStorage.getItem("token")));
     let transactions = JSON.parse(localStorage.getItem("transactions"));
-    let userTransactions = transactions.map(obj => {
-        if (obj.userId === payload.userId) {
-            return obj
-        }
+    let userTransactions = transactions.filter(obj => {
+      return  obj.userId === payload.userId
+        
     })
+    console.log(userTransactions)
     return userTransactions;
 }
 export const getTransactionByAccountName = () => {
+    let transactionByAccountName=[]
+    let payload = jwt.decode(JSON.parse(localStorage.getItem("token")));
     let transactions = JSON.parse(localStorage.getItem("transactions"));
+    let accounts=JSON.parse(localStorage.getItem("accounts"));
+    console.log(window.location.pathname.substr(38))
+    let accountIndex = accounts.findIndex(item => {
+        return item.accountName === window.location.pathname.substr(38) &&(item.userId==payload.userId)
+    })
+    if(accountIndex!=-1)
+    {
+  transactionByAccountName=transactions.filter(obj=>{
+     return obj.accountId==accounts[accountIndex].accountId
+     
+ })
+}
+ console.log(transactionByAccountName)
+    return transactionByAccountName;
+}
+export const getTransactionByTransactionId = () => {
+    let transactions = JSON.parse(localStorage.getItem("transactions"));
+    let transactionId = Number(window.location.pathname.substr(17))
     let accounts=JSON.parse(localStorage.getItem("accounts"));
     let accountIndex = accounts.findIndex(item => {
         return item.accountName === window.location.pathname.substr(29)
     })
- let transactionByAccountName=transactions.map(obj=>{
-     if(obj.accountId==accounts[accountIndex].accountId)
-     return obj
+ let transactionByTransactionId=transactions.filter(obj=>{
+     return obj.transactionId==transactionId
+     
  })
-    return transactionByAccountName;
+ console.log(transactionByTransactionId)
+    return transactionByTransactionId;
 }
 
 

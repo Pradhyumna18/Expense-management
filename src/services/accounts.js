@@ -1,19 +1,19 @@
 import jwt from 'jsonwebtoken'
-export const addAccount = (accountName) => {
-
+export const addAccount = (accountName,accBalance) => {
+    let payload=jwt.decode(JSON.parse(localStorage.getItem("token")))
     let accounts = JSON.parse(localStorage.getItem('accounts'));  
     let accountIndex = accounts.findIndex(item => {
-        return item.accountName === accountName
+        return (item.accountName === accountName)&& (item.userId==payload.ue) 
     })
     if (accountIndex === -1) {
-        let payload=jwt.decode(JSON.parse(localStorage.getItem("token")))
+       
         console.log(payload.userId)
         let accId=JSON.parse(localStorage.getItem('accountId'))
         accId++
         let obj={
                accountId:accId,
                accountName:accountName,
-               accountBalance:0,
+               accountBalance:accBalance,
                userId:payload.userId
         }
         accounts.push(obj)
@@ -27,11 +27,21 @@ export const addAccount = (accountName) => {
 export const getAccounts = () => {
     let accounts = JSON.parse(localStorage.getItem('accounts'));
     let payload=jwt.decode(JSON.parse(localStorage.getItem('token')));
-    let userAccounts = accounts.map(obj => {
-    if(obj.userId === payload.userId){
-    return obj;
-    }
+    let userAccounts=accounts.filter(obj=>{
+       return obj.userId === payload.userId
     })
+    console.log(userAccounts)
     return userAccounts ;
+    }
+    export const getAccountBalance = (accountName) => {
+        let payload = jwt.decode(JSON.parse(localStorage.getItem("token")));
+        let accounts = JSON.parse(localStorage.getItem("accounts"));
+        let accBalance = accounts.map(obj => {
+            if(obj.accountName == accountName && obj.userId ===payload.userId)
+                return obj.accountBalance;
+        })
+       // console.log(accBalance);
+        return accBalance;
+        
     }
 //: [ { accountId , accountName , accountBalance , userId } ]

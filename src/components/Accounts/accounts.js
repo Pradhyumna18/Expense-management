@@ -27,6 +27,7 @@ class Accounts extends React.Component {
         let transactions = getTransactions()
         console.log(transactions)
         let accounts = getAccounts()
+        console.log(accounts)
         console.log(window.location.pathname)
         return (
             <div>
@@ -42,14 +43,14 @@ class Accounts extends React.Component {
                             </div>)
                         })}
                         <div className="AccountCard">
-                            <Link to='/addaccount'>+</Link>
+                            <Link to='/accounts/addaccount'>+</Link>
                         </div>
                     </div>
                 </div>
                 <div style={{ marginTop: "100px" }}>
                     <div style={{ textAlign: "left", marginLeft: "50px", marginBottom: "25px" }}>
                         <label style={{ fontWeight: "bold", fontSize: "17px", marginRight: "20px" }}> RECENT TRANSACTIONS</label>
-                        <Link to="/addtransaction" className="AddTransactionButton">Add Transaction</Link>
+                        <Link to="/accounts/addtransaction" className="AddTransactionButton">Add Transaction</Link>
                     </div>
                 </div>
                 <div style={{ marginLeft: "50px" }} >
@@ -57,7 +58,7 @@ class Accounts extends React.Component {
                         return <TransactionDisplay onDelete={this.handleDelete}>{item}</TransactionDisplay>
                     })}
                 </div>
-                {this.state.divClicked ? <Redirect to={`/specificAccountTransactions/${this.state.divClicked}`} /> : null}
+                {this.state.divClicked ? <Redirect to={`/accounts/specificAccountTransactions/${this.state.divClicked}`} /> : null}
             </div>
         )
     }

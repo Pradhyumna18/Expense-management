@@ -4,20 +4,12 @@
     background-color: aquamarine;
     margin:25px;
     font-size: 20px;
-    /* padding-top: 20px; */
     display:flex;
     flex-direction:column;
     justify-content: space-around;
     flex-shrink: 0;
 }
-
-.AddTransactionButton{
-    width:250px;
-    height:75px;
-    background-color: darkslateblue;
-    color: aliceblue;
-}
-.AddAccButton{
+.AddTranscButton{
     height:50px;
     width:200px;
     border-radius: 5px;

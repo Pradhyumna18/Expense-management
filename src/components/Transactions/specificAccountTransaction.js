@@ -1,7 +1,9 @@
 import React from 'react'
 import { deleteTransaction, getTransactionByAccountName } from '../../services/transactions'
+import {getAccountBalance} from '../../services/accounts'
 import { Redirect, Link } from 'react-router-dom'
-class TransactionDisplay extends React.Component {
+import { IoMdArrowRoundBack } from "react-icons/io";
+class SpecificAccountTransaction extends React.Component {
     handleDelete = async (transactionId) => {
         console.log(transactionId)
         await deleteTransaction(transactionId)
@@ -10,12 +12,19 @@ class TransactionDisplay extends React.Component {
     }
     render() {
         let transactions = getTransactionByAccountName()
+        let accName = window.location.pathname.substr(38);
+        let accBalance = getAccountBalance(accName);
         console.log(transactions)
-        if (transactions[0] != undefined) {
+        if (transactions.length != 0) {
             return (
-
                 <div>
-                    <Link to='/accounts'>back</Link>
+                    <div style={{ textAlign: "left" }}>
+                        <Link to="/accounts"><IoMdArrowRoundBack style={{ fontSize: "50px", color: "black" }} /></Link>
+                    </div>
+                    <div className="AccountCard">
+                        {accName}
+                         <b style={{ fontSize: "larger" }}> ₹ {accBalance} </b> 
+                    </div>
                     {transactions.map(obj => {
                         return <div style={{ height: "50px", width: "75%", justifyContent: "space-around", display: "flex", border: "1px solid", margin: "10px" }}>
                             <div>   {obj.transactionType}</div>
@@ -35,4 +44,4 @@ class TransactionDisplay extends React.Component {
         }
     }
 }
-export default TransactionDisplay
+export default SpecificAccountTransaction

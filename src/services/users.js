@@ -33,7 +33,7 @@ export const verifyUser = (user) => {
         console.log(users[userIndex].userId)
         let token = jwt.sign({ userName: user.userName, userId: users[userIndex].userId }, "xyz")
         localStorageSetItem("token", token)
-        return true
+        return token
     }
     return false
 

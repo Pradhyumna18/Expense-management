@@ -1,56 +1,77 @@
 import React, { Component } from 'react';
+import {connect } from 'react-redux';
 import './App.css';
 import {
+  BrowserRouter as Router,
   Route,
   Redirect,
   Switch
 } from 'react-router-dom';
-import Login from './components/signin';
+import Signin from './components/Users/signin';
+import Signup from './components/Users/Signup';
+// import Accounts from './components/Accounts/accounts';
+// import AddAccounts from './components/Accounts/addAccount';
+// import AddTransaction from './components/Transaction/AddTransaction/AddTransaction';
+// import SpecificAccount from './components/Accounts/SpecificAccount/SpecificAcccount';
+// //import Routes from './Routes/Routes';
+import Dashboard from './components/Accounts/Dashboard';
+
 import { localStorageGetItem, localStorageSetItem } from './services/utils';
-import Signup from './components/Signup';
-import AddAccount from './components/Accounts/addAccount'
-import Accounts from './components/Accounts/accounts'
-import AddTransaction from './components/Transactions/addTransactions'
-import SpecificAccountTransaction from './components/Transactions/specificAccountTransaction'
+
 class App extends Component {
 
+
   componentWillMount() {
-    let users = localStorageGetItem('users');
-    if (!users) {
+    let usersStorageItem = localStorageGetItem('users');
+    if (!usersStorageItem) {
       localStorageSetItem('users', []);
     }
-    let transactions = localStorage.getItem('transactions');
-    if (!transactions) {
-      localStorage.setItem('transactions', JSON.stringify([]));
+
+    let accStorageItem = localStorageGetItem("accounts");
+    if (!accStorageItem) {
+      localStorageSetItem("accounts", [])
     }
-    let accounts = localStorage.getItem('accounts');
-    if (!accounts) {
-      localStorage.setItem('accounts', JSON.stringify([]));
+
+    let transcStorageItem = localStorageGetItem("transactions");
+    if (!transcStorageItem) {
+      localStorageSetItem("transactions", [])
     }
   }
 
   render() {
+   let token = localStorageGetItem("token") || this.props.token;
+   console.log(" TOKEN -> ", token);
     return (
       <div className="App">
+        <Router>
+          {!token ?
+            
+              <Switch>
+                <Route exact path='/signin'><Signin /></Route>
+                <Route exact path="/signup"><Signup /></Route>
+                <Route path="*" render={()=>{return <Redirect to="/signin"/>}} exact/> 
+              </Switch>
+           
+            :
+            <Switch>
+              
+              <Route path="/accounts" component={Dashboard} />
+              <Route path="*" render={() => <Redirect to="/accounts" />} exact/>
+            </Switch>
+           
+             }
 
-        <Redirect from="/" to="/login" />
-
-        <Switch>
-
-          <Route exact path='/login'><Login /></Route>
-          <Route exact path='/signup'><Signup /></Route>
-          <Route exact path='/accounts'><Accounts /></Route>
-          <Route exact path='/addaccount'><AddAccount /></Route>
-          <Route exact path='/addtransaction'><AddTransaction/></Route>
-          <Route  path='/edittransaction'><AddTransaction></AddTransaction></Route>
-          <Route path='/specificAccountTransactions'><SpecificAccountTransaction></SpecificAccountTransaction> </Route>
-          
-
-        </Switch>
-
+        </Router>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    token: state.Users.token,
+  }
+}
+
+
+export default connect(mapStateToProps)(App);
