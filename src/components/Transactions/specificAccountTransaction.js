@@ -6,6 +6,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { getAccountNameById } from '../../services/accounts';
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
+import moment from 'moment'
 import './transactions.css'
 class SpecificAccountTransaction extends React.Component {
     handleDelete = async (transactionId) => {
@@ -36,12 +37,10 @@ class SpecificAccountTransaction extends React.Component {
                     return <div style={{ height: "50px", width: "75vw", justifyContent: "space-around", display: "flex", border: "1px solid", fontSize: "20px", margin: "10px", padding: "20px" }}>
                         <div>   {obj.transactionType}</div>
                         <div> {obj.description}</div>
-                        <div> {obj.date}</div>
+                        <div>{obj.date}</div>
                         <div> {obj.amount}</div>
-                        {/* <div>{obj.accountId}</div> */}
                         <div className="TransactionItem">{getAccountNameById(obj.accountId)}</div>
-                        {/* <button onClick={() => this.handleDelete(obj.transactionId)}>delete transaction</button>
-                        <Link to={`/accounts/edittransaction/${obj.transactionId}`}>edit transaction</Link> */}
+        
                            <MdDelete onClick={() => this.handleDelete(obj.transactionId)} />
                         <Link to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
                     </div>

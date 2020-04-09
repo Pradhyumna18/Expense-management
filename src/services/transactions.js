@@ -73,10 +73,10 @@ export const getTransactionByAccountName = () => {
 }
 export const getTransactionByTransactionId = () => {
     let transactions = JSON.parse(localStorage.getItem("transactions"));
-    let transactionId = Number(window.location.pathname.substr(17))
+    let transactionId = Number(window.location.pathname.substr(26))
     let accounts=JSON.parse(localStorage.getItem("accounts"));
     let accountIndex = accounts.findIndex(item => {
-        return item.accountName === window.location.pathname.substr(29)
+        return item.accountName === window.location.pathname.substr(26)
     })
  let transactionByTransactionId=transactions.filter(obj=>{
      return obj.transactionId==transactionId
@@ -110,13 +110,15 @@ export const deleteTransaction = (transactionId) => {
     }
 }
 export const editTransaction = (transaction) => {
+    console.log("edit transaction")
     let payload = jwt.decode(JSON.parse(localStorage.getItem("token")));
-    let transactionId = Number(window.location.pathname.substr(17))
+    let transactionId = Number(window.location.pathname.substr(26))
+    console.log((window.location.pathname.substr(26)))
     let transactions = JSON.parse(localStorage.getItem('transactions'));
     let transactionIndex = transactions.findIndex(item => {
         return item.transactionId === transactionId
     })
-    transaction = { ...transaction, transactionId: Number(window.location.pathname.substr(17)), accountId: transactions[transactionIndex].accountId, userId: payload.userId }
+    transaction = { ...transaction, transactionId: Number(window.location.pathname.substr(26)), accountId: transactions[transactionIndex].accountId, userId: payload.userId }
     let accounts = JSON.parse(localStorage.getItem('accounts'))
     let accountIndex = accounts.findIndex(item => {
         return item.accountId === transactions[transactionIndex].accountId

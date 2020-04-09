@@ -1,21 +1,26 @@
 import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import { addTransaction, editTransaction, getTransactionByTransactionId } from '../../services/transactions'
-import {getAccounts} from '../../services/accounts'
+import { getAccounts,getAccountNameById } from '../../services/accounts'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import './transactions.css'
+import moment from 'moment'
+
 class Accounts extends React.Component {
+
     state = {
         transactionType: '',
-        description: '',
-        amount: 0,
+        description: window.location.pathname.substr(0, 25) != '/accounts/addtransaction/' && window.location.pathname != '/accounts/addtransaction' ? getTransactionByTransactionId()[0].description : '',
+        amount: window.location.pathname.substr(0, 25) != '/accounts/addtransaction/' && window.location.pathname != '/accounts/addtransaction' ? getTransactionByTransactionId()[0].amount : 0,
         date: '',
         addedTransaction: false,
         editedTransaction: false,
-        accountName: ''
+        accountName: window.location.pathname.substr(0, 25) != '/accounts/addtransaction/' && window.location.pathname != '/accounts/addtransaction' ? getAccountNameById(getTransactionByTransactionId()[0].accountId)  : 'Select an Account',
+        arr: {}
     }
+
     componentWillMount() {
         let transactionId = localStorage.getItem("transactionId");
         if (!transactionId) {
@@ -27,25 +32,22 @@ class Accounts extends React.Component {
             transactionType: this.state.transactionType,
             description: this.state.description,
             amount: this.state.amount,
-            date: this.state.date,
+            date: moment(this.state.date).format('DD-MM-YYYY'),
             accountName: this.state.accountName
         }
-        if (window.location.pathname == '/accounts/addtransaction') {
+        if (transaction.accountName !== window.location.pathname.substr(25) || transaction.accountName === undefined) {
+            transaction.accountName = window.location.pathname.substr(25);
+           // console.log(transaction.accountName);
+        }
+        console.log(window.location.pathname.substr(0, 25))
+        if (window.location.pathname.substr(0, 25) == '/accounts/addtransaction/' || window.location.pathname == '/accounts/addtransaction') {
             let onAddTransaction = addTransaction(transaction)
             if (onAddTransaction)
                 await this.setState({ addedTransaction: true })
             await this.setState({ addedTransaction: false })
         }
         else {
-            // let arr = getTransactionByTransactionId();
-            // console.log(arr)
-            // this.setState({
-            //     transactionType: arr[0].transactionType,
-            //     description: arr[0].description,
-            //     amount: arr[0].amount,
-            //     date: arr[0].date,
-            //     accountName: arr[0].accountName
-            // })
+
             let onEditTransaction = editTransaction(transaction)
             await this.setState({ editedTransaction: true })
             await this.setState({ editedTransaction: false })
@@ -64,16 +66,28 @@ class Accounts extends React.Component {
         this.setState({ amount: e.target.value })
     }
     handleDate = (date) => {
-        this.setState({ date: date})
+        this.setState({ date: date })
     }
+
     render() {
         let redirect = ''
+        let array = []
         if (this.state.addedTransaction || this.state.editedTransaction)
             redirect = <Redirect to='/accounts'></Redirect>
-            let userAccounts = getAccounts();
-            let accountName = userAccounts.map(obj => {
-                return (<option label={obj.accountName}>{obj.accountName}</option>);
-            })
+        let userAccounts = getAccounts();
+        let accountName = userAccounts.map(obj => {
+            return (<option label={obj.accountName}>{obj.accountName}</option>);
+        })
+        let path = window.location.pathname;
+        if (path.startsWith("/accounts/add")) {
+            var accName = window.location.pathname.substr(25);
+            console.log(accName);
+        }
+       
+        // console.log(accountName);
+        // let index =accountName.findIndex(name => {return name === this.state.accountName})
+        // accountName.splice(index+1 , 1);
+        // console.log(accountName)
         return (
             <div style={{ textAlign: "left", marginLeft: "50px" }}>
                 <h2>NEW TRANSACTION</h2>
@@ -90,19 +104,29 @@ class Accounts extends React.Component {
                     <input type="text" onChange={this.handleDescription} value={this.state.description} className="InputField"></input>
                 </div>
 
-                <div style={{ margin: "10px" }}>
-                    <label style={{ fontWeight: "bold", fontSize: "large" }}>Account</label>
-                    <br />
-                    <select value={this.state.accountName} onChange={this.handleAccountName} className="InputField">
-                        <option label="Select an Account "></option>
-                        {accountName}
-                    </select>
-                </div>
+                {accName ?
+                            <div style={{ margin: "10px" }}>
+                                <label style={{ fontWeight: "bold", fontSize: "large" }}>Account</label>
+                                <br />
+                                <select value={accName} onChange={this.handleAccountName} className="InputField" disabled>
+                                    <option label={accName} ></option>
+                                </select>
+                            </div>
+                            :
+                            <div style={{ margin: "10px" }}>
+                                <label style={{ fontWeight: "bold", fontSize: "large" }}>Account</label>
+                                <br />
+                                <select value={this.state.accountName} onChange={this.handleAccountName} className="InputField">
+                                    <option label="Select an Account "></option>
+                                    {accountName}
+                                </select>
+                            </div>
+                        }
 
                 <div style={{ margin: "10px" }}>
                     <label style={{ fontWeight: "bold", fontSize: "large" }}>Amount</label>
                     <br />
-                    <input type="text" onChange={this.handleAmount} className="InputField"></input>
+                    <input type="text" onChange={this.handleAmount} value={this.state.amount} className="InputField"></input>
                 </div>
 
                 <div style={{ margin: "10px" }}>
@@ -110,12 +134,12 @@ class Accounts extends React.Component {
                     <br />
                     {/* <input type="text" onChange={this.handleDate} className="InputField"></input> */}
                     <DatePicker
-                            dateFormat='dd-MM-yyyy'
-                            selected={this.state.date}
-                            onChange={this.handleDate}
-                            value={this.state.date}
-                            className="InputField"
-                        />
+                        dateFormat='dd-MM-yyyy'
+                        selected={this.state.date}
+                        onChange={this.handleDate}
+                        value={this.state.date}
+                        className="InputField"
+                    />
                 </div>
 
                 <button onClick={this.handleAddTransaction} className="AddTranscButton" style={{ marginLeft: "50px" }}> Add Transaction</button>

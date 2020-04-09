@@ -1,20 +1,20 @@
 const initialState = {
     userName: "",
     password: "",
-    userId:"",
+    userId: "",
     token: null,
 }
 
-const userReducer = (state=initialState , action) => {
-    switch(action.type){
-        case "USERNAMECHANGE" : {
+const userReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case "USERNAMECHANGE": {
             return {
                 ...state,
                 userName: action.payload
             }
         }
 
-        case "PASSWORDCHANGE" : {
+        case "PASSWORDCHANGE": {
             return {
                 ...state,
                 password: action.payload
@@ -27,9 +27,15 @@ const userReducer = (state=initialState , action) => {
                 token: action.payload.token,
             }
         }
+        case "REMOVE_TOKEN": {
+            return {
+                ...state,
+                token: null,
+            }
+        }
 
-        default : return state;
+        default: return state;
     }
 }
 
-export default userReducer ;
+export default userReducer;
