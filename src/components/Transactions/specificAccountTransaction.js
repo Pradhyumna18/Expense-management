@@ -1,26 +1,22 @@
 import React from 'react'
 import { deleteTransaction, getTransactionByAccountName } from '../../services/transactions'
 import { getAccountBalance } from '../../services/accounts'
-import { Redirect, Link } from 'react-router-dom'
+import {  Link } from 'react-router-dom'
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { getAccountNameById } from '../../services/accounts';
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
-import moment from 'moment'
 import './transactions.css'
 class SpecificAccountTransaction extends React.Component {
     handleDelete = async (transactionId) => {
         console.log(transactionId)
         await deleteTransaction(transactionId)
         this.setState({})
-
     }
     render() {
         let transactions = getTransactionByAccountName()
         let accName = window.location.pathname.substr(38);
         let accBalance = getAccountBalance(accName);
-        console.log(transactions)
-
         return (
             <div>
                 <div style={{ textAlign: "left" }}>
@@ -40,7 +36,6 @@ class SpecificAccountTransaction extends React.Component {
                         <div>{obj.date}</div>
                         <div> {obj.amount}</div>
                         <div className="TransactionItem">{getAccountNameById(obj.accountId)}</div>
-        
                            <MdDelete onClick={() => this.handleDelete(obj.transactionId)} />
                         <Link to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
                     </div>

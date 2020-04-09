@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect} from 'react-router-dom'
 import { addTransaction, editTransaction, getTransactionByTransactionId } from '../../services/transactions'
 import { getAccounts, getAccountNameById } from '../../services/accounts'
 import DatePicker from "react-datepicker";
@@ -35,13 +35,9 @@ class AddAndEditTransactions extends React.Component {
             date: moment(this.state.date).format('DD-MM-YYYY'),
             accountName: this.state.accountName
         }
-        console.log(this.state.accountName)
-        console.log(transaction.accountName)
-        if ((transaction.accountName !== window.location.pathname.substr(25) && transaction.accountName === "Select an Account")|| transaction.accountName === undefined ) {
+        if ((transaction.accountName !== window.location.pathname.substr(25) && transaction.accountName === "Select an Account") || transaction.accountName === undefined) {
             transaction.accountName = window.location.pathname.substr(25);
-            console.log(transaction)
         }
-        console.log(window.location.pathname.substr(0, 25))
         if (window.location.pathname.substr(0, 25) == '/accounts/addtransaction/' || window.location.pathname == '/accounts/addtransaction') {
             let onAddTransaction = addTransaction(transaction)
             if (onAddTransaction)
@@ -49,14 +45,13 @@ class AddAndEditTransactions extends React.Component {
             await this.setState({ addedTransaction: false })
         }
         else {
-
-            let onEditTransaction = editTransaction(transaction)
+            editTransaction(transaction)
             await this.setState({ editedTransaction: true })
             await this.setState({ editedTransaction: false })
         }
     }
     handleTransactionType = (e) => {
-        this.setState({ transactionType: e.target.value })
+        this.setState({ transactionType: e.currentTarget.value })
     }
     handleAccountName = (e) => {
         this.setState({ accountName: e.target.value })
@@ -70,10 +65,8 @@ class AddAndEditTransactions extends React.Component {
     handleDate = (date) => {
         this.setState({ date: date })
     }
-
     render() {
         let redirect = ''
-        let array = []
         if (this.state.addedTransaction || this.state.editedTransaction)
             redirect = <Redirect to='/accounts'></Redirect>
         let userAccounts = getAccounts();
@@ -83,10 +76,7 @@ class AddAndEditTransactions extends React.Component {
         let path = window.location.pathname;
         if (path.startsWith("/accounts/add")) {
             var accName = window.location.pathname.substr(25);
-            console.log(accName);
         }
-
-
         return (
             <div style={{ textAlign: "left", marginLeft: "50px" }}>
                 <h2>NEW TRANSACTION</h2>

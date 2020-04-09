@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { verifyUser } from '../../services/users';
-import {localStorageSetItem , localStorageGetItem} from '../../services/utils';
-import { Link , Redirect  } from 'react-router-dom';
+import { localStorageSetItem } from '../../services/utils';
+import { Link, Redirect } from 'react-router-dom';
 import './signin.css';
-
-
-
 class Signin extends Component {
-
-    constructor(props){
+    constructor(props) {
         super(props);
 
-        this.state={
-            onSignin : false,
+        this.state = {
+            onSignin: false,
         }
     }
-
     onUserNameChange = (event) => {
         this.props.userNameChange(event.target.value)
     }
@@ -24,11 +19,7 @@ class Signin extends Component {
     onPasswordChange = (event) => {
         this.props.passwordChange(event.target.value)
     }
-
-    
     render() {
-        //console.log("counter ", counter++);
-        console.log("ON SIGN IN ", this.state.onSignin);
         return (
             <div>
                 <div style={{ marginTop: "18%" }}>
@@ -43,16 +34,16 @@ class Signin extends Component {
                         <Link to="/signup">Does not have an account ? Register here</Link>
                     </div>
                     <div className="InputDivision">
-                        <button className="Button" onClick={()=>{
+                        <button className="Button" onClick={() => {
                             this.props.onSignin({
                                 userName: this.props.userName,
                                 password: this.props.password,
                             })
-                            }}>SIGNIN</button>
+                        }}>SIGNIN</button>
                     </div>
                     {this.props.token ? <Redirect to='/accounts' /> : null}
                 </div>
-                
+
             </div>
         );
     }
@@ -84,14 +75,14 @@ const mapDispatchToProps = (dispatch) => {
             let token = verifyUser(user)
 
             localStorageSetItem("token", token);
-            
+
             dispatch({
                 type: "SET_TOKEN",
                 payload: {
                     token: token ? token : null,
                 }
             })
-            
+
         }
 
     }

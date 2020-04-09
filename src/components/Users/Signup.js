@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../../services/users';
 import { localStorageSetItem, localStorageGetItem } from '../../services/utils';
-import { Switch, Route, Link, BrowserRouter, Redirect } from 'react-router-dom';
+import {  Link,  Redirect } from 'react-router-dom';
 import './signin.css'
 class Signup extends Component {
 
@@ -18,11 +18,9 @@ class Signup extends Component {
     onUserNameChange = (event) => {
         this.props.userNameChange(event.target.value)
     }
-
     onPasswordChange = (event) => {
         this.props.passwordChange(event.target.value)
     }
-
     onSignup = async () => {
         let userId = localStorageGetItem("userId");
         let user = {

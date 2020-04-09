@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { addAccount } from '../../services/accounts'
 import './accounts.css'
 class AddAccounts extends React.Component {

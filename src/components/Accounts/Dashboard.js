@@ -1,5 +1,5 @@
 import React ,{Component} from "react";
-import {Link ,Route ,Switch, Redirect} from "react-router-dom";
+import {Route ,Switch} from "react-router-dom";
 import Accounts from './accounts';
 import AddAccounts from './addAccount';
 import AddTransaction from '../Transactions/addAndEditTransactions';
@@ -35,7 +35,6 @@ class Dashboard extends Component {
                         <Route path={`${this.props.match.path}/edittransaction`}><AddTransaction /> </Route>
                         <Route path={`${this.props.match.path}/specificAccountTransactions`}><SpecificAccount /> </Route>
                         <Route path={`${this.props.match.path}`} exact><Accounts /></Route>
-                        {/* <Route path="*"> <Redirect to={`${this.props.match.path}`} exact/></Route> */}
                     </Switch>
                 </div>
             </div>

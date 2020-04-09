@@ -25,10 +25,7 @@ class Accounts extends React.Component {
     }
     render() {
         let transactions = getTransactions()
-        console.log(transactions)
         let accounts = getAccounts()
-        console.log(accounts)
-        console.log(window.location.pathname)
         return (
             <div>
                 <div style={{ margin: "25px" }}>
