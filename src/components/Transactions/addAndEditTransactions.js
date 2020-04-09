@@ -2,6 +2,10 @@ import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import { addTransaction, editTransaction, getTransactionByTransactionId } from '../../services/transactions'
 import {getAccounts} from '../../services/accounts'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import './transactions.css'
 class Accounts extends React.Component {
     state = {
         transactionType: '',
@@ -59,8 +63,8 @@ class Accounts extends React.Component {
     handleAmount = (e) => {
         this.setState({ amount: e.target.value })
     }
-    handleDate = (e) => {
-        this.setState({ date: e.target.value })
+    handleDate = (date) => {
+        this.setState({ date: date})
     }
     render() {
         let redirect = ''
@@ -104,7 +108,14 @@ class Accounts extends React.Component {
                 <div style={{ margin: "10px" }}>
                     <label style={{ fontWeight: "bold", fontSize: "large" }}>Date</label>
                     <br />
-                    <input type="text" onChange={this.handleDate} className="InputField"></input>
+                    {/* <input type="text" onChange={this.handleDate} className="InputField"></input> */}
+                    <DatePicker
+                            dateFormat='dd-MM-yyyy'
+                            selected={this.state.date}
+                            onChange={this.handleDate}
+                            value={this.state.date}
+                            className="InputField"
+                        />
                 </div>
 
                 <button onClick={this.handleAddTransaction} className="AddTranscButton" style={{ marginLeft: "50px" }}> Add Transaction</button>

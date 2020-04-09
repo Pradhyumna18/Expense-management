@@ -20,7 +20,7 @@ class Dashboard extends Component {
                     <Switch>
                         <Route exact path={`${this.props.match.path}/addaccount`}><AddAccounts /></Route>
                         <Route path={`${this.props.match.path}/addtransaction`}>  <AddTransaction /> </Route>
-                        <Route path={`${this.props.match.path}/editTransaction`}><AddTransaction /> </Route>
+                        <Route path={`${this.props.match.path}/edittransaction`}><AddTransaction /> </Route>
                         <Route path={`${this.props.match.path}/specificAccountTransactions`}><SpecificAccount /> </Route>
                         <Route path={`${this.props.match.path}`} exact><Accounts /></Route>
                         {/* <Route path="*"> <Redirect to={`${this.props.match.path}`} exact/></Route> */}

@@ -9,6 +9,11 @@
     justify-content: space-around;
     flex-shrink: 0;
 }
+
+.TransactionItem{
+    width: calc(75vh/6);
+    flex-shrink: 0;
+}
 .AddTranscButton{
     height:50px;
     width:200px;
@@ -23,4 +28,27 @@
     width: 300px;
     border-radius: 5px;
    
+}
+.AccountCard{
+    height : 120px;
+    width : 200px;
+    background-color: #ffcce5;
+    margin:25px;
+    font-size: 20px;
+    /* padding-top: 20px; */
+    display:flex;
+    flex-direction:column;
+    justify-content: space-around;
+    flex-shrink: 0;
+}
+
+
+.AddTransactionButton{
+    width:120px;
+    height:25px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px;
 }

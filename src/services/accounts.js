@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import {localStorageSetItem , localStorageGetItem} from './utils';
 export const addAccount = (accountName,accBalance) => {
     let payload=jwt.decode(JSON.parse(localStorage.getItem("token")))
     let accounts = JSON.parse(localStorage.getItem('accounts'));  
@@ -43,5 +44,14 @@ export const getAccounts = () => {
        // console.log(accBalance);
         return accBalance;
         
+    }
+    export const getAccountNameById = (accId) => {
+        let accounts = localStorageGetItem('accounts');
+        let payload=jwt.decode(localStorageGetItem("token"));
+        let accName = accounts.filter(obj => {
+            return obj.accountId == accId && obj.userId == payload.userId
+        })
+        console.log(accName[0].accountName);
+        return accName[0].accountName;
     }
 //: [ { accountId , accountName , accountBalance , userId } ]

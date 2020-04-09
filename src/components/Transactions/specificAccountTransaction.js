@@ -1,8 +1,12 @@
 import React from 'react'
 import { deleteTransaction, getTransactionByAccountName } from '../../services/transactions'
-import {getAccountBalance} from '../../services/accounts'
+import { getAccountBalance } from '../../services/accounts'
 import { Redirect, Link } from 'react-router-dom'
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { getAccountNameById } from '../../services/accounts';
+import { FiEdit } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
+import './transactions.css'
 class SpecificAccountTransaction extends React.Component {
     handleDelete = async (transactionId) => {
         console.log(transactionId)
@@ -15,33 +19,37 @@ class SpecificAccountTransaction extends React.Component {
         let accName = window.location.pathname.substr(38);
         let accBalance = getAccountBalance(accName);
         console.log(transactions)
-        if (transactions.length != 0) {
-            return (
-                <div>
-                    <div style={{ textAlign: "left" }}>
-                        <Link to="/accounts"><IoMdArrowRoundBack style={{ fontSize: "50px", color: "black" }} /></Link>
-                    </div>
-                    <div className="AccountCard">
-                        {accName}
-                         <b style={{ fontSize: "larger" }}> ₹ {accBalance} </b> 
-                    </div>
-                    {transactions.map(obj => {
-                        return <div style={{ height: "50px", width: "75%", justifyContent: "space-around", display: "flex", border: "1px solid", margin: "10px" }}>
-                            <div>   {obj.transactionType}</div>
-                            <div> {obj.description}</div>
-                            <div> {obj.date}</div>
-                            <div> {obj.amount}</div>
-                            <div>{obj.accountId}</div>
-                            <button onClick={() => this.handleDelete(obj.transactionId)}>delete transaction</button>
-                            <Link to={`/edittransaction/${obj.transactionId}`}>edit transaction</Link>
-                        </div>
-                    })}
+
+        return (
+            <div>
+                <div style={{ textAlign: "left" }}>
+                    <Link to="/accounts"><IoMdArrowRoundBack style={{ fontSize: "50px", color: "black" }} /></Link>
                 </div>
-            )
-        }
-        else {
-            return <div>No transactions</div>
-        }
+                <div className="AccountCard">
+                    {accName}
+                    <b style={{ fontSize: "larger" }}> ₹ {accBalance} </b>
+                </div>
+                <div style={{margin:"25px" , marginTop:"50px", marginRight:"500px"}}>
+                        <Link to={`/accounts/addtransaction/${accName}`} className="AddTransactionButton">Add Transaction</Link>
+                    </div>
+                {transactions.length!==0 ? transactions.map(obj => {
+                    return <div style={{ height: "50px", width: "75vw", justifyContent: "space-around", display: "flex", border: "1px solid", fontSize: "20px", margin: "10px", padding: "20px" }}>
+                        <div>   {obj.transactionType}</div>
+                        <div> {obj.description}</div>
+                        <div> {obj.date}</div>
+                        <div> {obj.amount}</div>
+                        {/* <div>{obj.accountId}</div> */}
+                        <div className="TransactionItem">{getAccountNameById(obj.accountId)}</div>
+                        {/* <button onClick={() => this.handleDelete(obj.transactionId)}>delete transaction</button>
+                        <Link to={`/accounts/edittransaction/${obj.transactionId}`}>edit transaction</Link> */}
+                           <MdDelete onClick={() => this.handleDelete(obj.transactionId)} />
+                        <Link to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
+                    </div>
+                }) : <h1>No Recent transactions</h1>}
+                </div>
+        )
     }
+
 }
+
 export default SpecificAccountTransaction

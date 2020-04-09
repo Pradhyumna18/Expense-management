@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createUser } from '../../services/users';
 import { localStorageSetItem, localStorageGetItem } from '../../services/utils';
 import { Switch, Route, Link, BrowserRouter, Redirect } from 'react-router-dom';
+import './signin.css'
 class Signup extends Component {
 
     componentWillMount() {
