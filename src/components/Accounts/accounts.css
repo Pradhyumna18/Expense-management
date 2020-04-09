@@ -11,12 +11,6 @@
     flex-shrink: 0;
 }
 
-.AddTransactionButton{
-    width:130px;
-    height:30px;
-    background-color: darkslateblue;
-    color: aliceblue;
-}
 .AddAccButton{
     height:50px;
     width:200px;
@@ -31,4 +25,13 @@
     width: 300px;
     border-radius: 5px;
    
+}
+.AddTransactionButton{
+    width:120px;
+    height:25px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px;
 }

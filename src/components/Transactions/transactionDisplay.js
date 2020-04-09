@@ -1,10 +1,10 @@
 import React from 'react'
 import { deleteTransaction } from '../../services/transactions'
 import {  Link } from 'react-router-dom'
-import { FiEdit } from "react-icons/fi";
-import { MdDelete } from "react-icons/md";
+import { FiEdit } from "react-icons/fi"
+import { MdDelete } from "react-icons/md"
 import './transactions.css'
-import { getAccountNameById } from '../../services/accounts';
+import { getAccountNameById } from '../../services/accounts'
 class TransactionDisplay extends React.Component {
     handleDelete = async () => {
         await deleteTransaction(this.props.children.transactionId)

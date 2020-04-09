@@ -30,7 +30,7 @@ const userReducer = (state = initialState, action) => {
         case "REMOVE_TOKEN": {
             return {
                 ...state,
-                token: null,
+                token: "",
             }
         }
 

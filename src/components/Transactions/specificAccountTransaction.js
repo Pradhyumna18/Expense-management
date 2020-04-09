@@ -26,7 +26,7 @@ class SpecificAccountTransaction extends React.Component {
                     {accName}
                     <b style={{ fontSize: "larger" }}> ₹ {accBalance} </b>
                 </div>
-                <div style={{margin:"25px" , marginTop:"50px", marginRight:"500px"}}>
+                <div style={{ marginLeft:"50px", marginTop:"10px", marginRight:"1200px",display:"flex",flexDirection:"column"}}>
                         <Link to={`/accounts/addtransaction/${accName}`} className="AddTransactionButton">Add Transaction</Link>
                     </div>
                 {transactions.length!==0 ? transactions.map(obj => {

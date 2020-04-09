@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../../services/users';
 import { localStorageSetItem, localStorageGetItem } from '../../services/utils';
-import {  Link,  Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './signin.css'
 class Signup extends Component {
 
@@ -39,13 +39,21 @@ class Signup extends Component {
     render() {
         return (
             <div>
-
-                USERNAME : <input type="text" onChange={this.onUserNameChange} />
-                <br /><br />
-                PASSWORD : <input type="password" onChange={this.onPasswordChange} />
-                <br /><br />
-                <Link to="/login">Have an account? Signin</Link>
-                <button onClick={this.onSignup}>SIGNUP</button>
+                <div style={{ marginTop: "18%" }}>
+                    <h2>EXPENSE TRACKER</h2>
+                    <div className="InputDivision">
+                        <input type="text" placeholder="USERNAME" className="Input" onChange={this.onUserNameChange} />
+                    </div>
+                    <div className="InputDivision">
+                        <input type="password" placeholder="PASSWORD" className="Input" onChange={this.onPasswordChange} />
+                    </div>
+                    <div className="InputDivision">
+                        <Link to="/login">Have an account ? Signin here</Link>
+                    </div>
+                    <div className="InputDivision">
+                        <button className="Button" onClick={this.onSignup}>SIGNUP</button>
+                    </div>
+                </div>
                 {this.state.onSignup ? <Redirect to='/login'></Redirect> : <Redirect to='/signup'></Redirect>}
             </div>
         );

@@ -40,7 +40,7 @@ class Accounts extends React.Component {
                             </div>)
                         })}
                         <div className="AccountCard">
-                            <Link to='/accounts/addaccount'>+</Link>
+                            <Link to='/accounts/addaccount' style={{textDecoration:"none",fontSize:"50px"}}>+</Link>
                         </div>
                     </div>
                 </div>
@@ -51,9 +51,9 @@ class Accounts extends React.Component {
                     </div>
                 </div>
                 <div style={{ marginLeft: "50px" }} >
-                    {transactions.map(item => {
+                    {transactions.length !== 0 ? transactions.map(item => {
                         return <TransactionDisplay onDelete={this.handleDelete}>{item}</TransactionDisplay>
-                    })}
+                    }) : <h1>NO RECENT TRANSACTIONS</h1>}
                 </div>
                 {this.state.divClicked ? <Redirect to={`/accounts/specificAccountTransactions/${this.state.divClicked}`} /> : null}
             </div>
