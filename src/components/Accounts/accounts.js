@@ -34,7 +34,7 @@ class Accounts extends React.Component {
                     </div>
                     <div style={{ overflowX: "auto", display: "flex" }}>
                         {accounts.map(obj => {
-                            return (<div className="AccountCard" onClick={() => { this.handleDivClicked(obj.accountName) }}>
+                            return (<div className="AccountCard" style={{cursor:"pointer"}} onClick={() => { this.handleDivClicked(obj.accountName) } }>
                                 {obj.accountName}
                                 <b style={{ fontSize: "larger" }}> ₹ {obj.accountBalance} </b>
                             </div>)

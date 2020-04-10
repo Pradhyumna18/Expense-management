@@ -26,7 +26,7 @@ class AddAccounts extends React.Component {
         if (this.state.addedAccount)
             redirect = <Redirect to='/accounts'></Redirect>
         return (
-            <div style={{ marginTop: "20%", textAlign: "left", marginLeft: "100px" }}>
+            <div style={{ marginTop: "10%", textAlign: "center", marginLeft: "100px" }}>
                 <div  >
                     <label style={{ fontSize: "22px", fontWeight: "bold" }} >NEW ACCOUNT</label>
                     <br />

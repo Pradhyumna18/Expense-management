@@ -79,7 +79,7 @@ class AddAndEditTransactions extends React.Component {
         }
         return (
             <div style={{ textAlign: "left", marginLeft: "50px" }}>
-                <h2>NEW TRANSACTION</h2>
+                <h2> TRANSACTION</h2>
                 <input type="radio" value="income" checked={this.state.transactionType === "income"} style={{ margin: "5px" }} onChange={this.handleTransactionType} />
                 <label style={{ marginRight: "25px", fontWeight: "bold", fontSize: "large" }}>Income</label>
                 <input type="radio" value="expense" checked={this.state.transactionType === "expense"} style={{ margin: "5px" }} onChange={this.handleTransactionType} />
@@ -127,7 +127,7 @@ class AddAndEditTransactions extends React.Component {
                     />
                 </div>
 
-                <button onClick={this.handleAddTransaction} className="AddTranscButton" style={{ marginLeft: "50px" }}> Add Transaction</button>
+                <button onClick={this.handleAddTransaction} className="AddTranscButton" style={{ marginLeft: "50px" }}> Save Transaction</button>
                 {redirect}
             </div>
         )
