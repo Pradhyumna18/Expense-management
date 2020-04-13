@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import './transactions.css'
 import moment from 'moment'
+import Toast from 'light-toast'
 class AddTransactions extends React.Component {
     componentWillMount() {
         let transactionId = localStorage.getItem("transactionId");
@@ -37,6 +38,7 @@ class AddTransactions extends React.Component {
         this.props.handleDescription('')
         this.props.handleAmount('')
         this.props.handleDate('')
+        Toast.success("added transaction successfully",500)
 
     }
     handleTransactionType = (e) => {

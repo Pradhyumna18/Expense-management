@@ -2,14 +2,21 @@ import React from 'react'
 import { Redirect,Link } from 'react-router-dom'
 import { addAccount } from '../../services/accounts'
 import './accounts.css'
+import Toast from 'light-toast'
 class AddAccounts extends React.Component {
 
     handleAddAccount = () => {
         let onAddAccount = addAccount(this.props.accountName, this.props.accountBalance)
         if (onAddAccount)
+        {
             this.props.onAddAccount(onAddAccount)
+            Toast.success("account added successfully", 500);
+        }
         else
+        {
             this.props.onAddAccount(onAddAccount)
+            Toast.fail("account name already exists",500)
+        }
     }
     handleAccountName = (e) => {
         this.props.accountNameChange(e.target.value)

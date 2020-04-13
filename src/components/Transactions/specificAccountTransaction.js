@@ -7,11 +7,13 @@ import { getAccountNameById } from '../../services/accounts';
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import './transactions.css'
+import Toast from 'light-toast'
 class SpecificAccountTransaction extends React.Component {
     handleDelete = async (transactionId) => {
         console.log(transactionId)
         deleteTransaction(transactionId)
         this.setState({})
+        Toast.success("transaction deleted successfully",500)
     }
     render() {
         return (

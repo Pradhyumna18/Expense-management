@@ -3,6 +3,7 @@ import { createUser } from '../../services/users';
 import { localStorageSetItem, localStorageGetItem } from '../../services/utils';
 import { Link, Redirect } from 'react-router-dom';
 import './signin.css'
+import Toast from 'light-toast'
 class Signup extends Component {
 
     componentWillMount() {
@@ -30,9 +31,9 @@ class Signup extends Component {
 
         await this.setState({ onSignup: createUser(user) })
         if (this.state.onSignup)
-            alert("Signup successful")
+           Toast.success("signup successful")
         else
-            alert("signup failed")
+            Toast.fail("username already exists",500)
 
     }
     render() {

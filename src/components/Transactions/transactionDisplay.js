@@ -5,10 +5,13 @@ import { FiEdit } from "react-icons/fi"
 import { MdDelete } from "react-icons/md"
 import './transactions.css'
 import { getAccountNameById } from '../../services/accounts'
+import Toast from 'light-toast'
 class TransactionDisplay extends React.Component {
     handleDelete = async () => {
         await deleteTransaction(this.props.children.transactionId)
         this.props.onDelete()
+        Toast.success("transaction deleted",500)
+
     }
     render() {
         return (

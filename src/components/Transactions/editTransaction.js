@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import './transactions.css'
 import moment from 'moment'
+import Toast from 'light-toast'
 class EditTransaction extends React.Component {
 
     componentWillMount() {
@@ -40,6 +41,7 @@ class EditTransaction extends React.Component {
         this.props.handleDescription('')
         this.props.handleAmount('')
         this.props.handleDate('')
+        Toast.success("edited transaction successfully",500)
     }
     handleTransactionType = (e) => {
         this.props.handleTransactionType(e.target.value)
