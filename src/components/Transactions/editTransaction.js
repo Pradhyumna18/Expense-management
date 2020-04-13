@@ -15,13 +15,22 @@ class EditTransaction extends React.Component {
         if (!transactionId) {
             localStorage.setItem("transactionId", 0)
         }
-        let obj = getTransactionByTransactionId(this.props.transactionClicked)
-        this.props.handleTransactionType(obj[0].transactionType)
-        let accountName = getAccountNameById(obj[0].accountId)
-        this.props.handleAccountName(accountName)
-        this.props.handleDescription(obj[0].description)
-        this.props.handleAmount(obj[0].amount)
-      // this.props.handleDate(new Date(obj[0].date))
+        if (this.props.transactionClicked) {
+            let obj = getTransactionByTransactionId(this.props.transactionClicked)
+            this.props.handleTransactionType(obj[0].transactionType)
+            let accountName = getAccountNameById(obj[0].accountId)
+            this.props.handleAccountName(accountName)
+            this.props.handleDescription(obj[0].description)
+            this.props.handleAmount(obj[0].amount)
+            // this.props.handleDate(new Date(obj[0].date))
+        }
+        else {
+            this.props.handleTransactionType('')
+            this.props.handleAccountName('')
+            this.props.handleDescription('')
+            this.props.handleAmount('')
+            this.props.handleDate('')
+        }
     }
     handleEditTransaction = async () => {
         let transaction = {
@@ -54,7 +63,7 @@ class EditTransaction extends React.Component {
     handleDate = (date) => {
         this.props.handleDate(date)
     }
-    componentDidMount(){
+    componentDidMount() {
 
     }
     render() {
