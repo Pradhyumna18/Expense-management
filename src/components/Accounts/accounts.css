@@ -8,6 +8,7 @@
     flex-direction:column;
     justify-content: space-around;
     flex-shrink: 0;
+    border: red;
 }
 
 .AddAccButton{

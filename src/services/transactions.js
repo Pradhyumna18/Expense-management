@@ -51,13 +51,14 @@ export const getTransactions = () => {
 
 
 
-export const getTransactionByAccountName = () => {
+export const getTransactionByAccountName = (accountName) => {
+    console.log(accountName)
     let transactionByAccountName = []
     let payload = jwt.decode(JSON.parse(localStorage.getItem("token")));
     let transactions = JSON.parse(localStorage.getItem("transactions"));
     let accounts = JSON.parse(localStorage.getItem("accounts"));
     let accountIndex = accounts.findIndex(item => {
-        return item.accountName === window.location.pathname.substr(38) && (item.userId == payload.userId)
+        return item.accountName === accountName && (item.userId == payload.userId)
     })
     if (accountIndex != -1) {
         transactionByAccountName = transactions.filter(obj => {
@@ -69,9 +70,9 @@ export const getTransactionByAccountName = () => {
 }
 
 
-export const getTransactionByTransactionId = () => {
+export const getTransactionByTransactionId = (transactionId) => {
     let transactions = JSON.parse(localStorage.getItem("transactions"));
-    let transactionId = Number(window.location.pathname.substr(26))
+    //let transactionId = Number(window.location.pathname.substr(26))
     let transactionByTransactionId = transactions.filter(obj => {
         return obj.transactionId == transactionId
 
@@ -102,14 +103,14 @@ export const deleteTransaction = (transactionId) => {
         localStorage.setItem("transactions", JSON.stringify(transactions))
     }
 }
-export const editTransaction = (transaction) => {
+export const editTransaction = (transaction,transId) => {
     let payload = jwt.decode(JSON.parse(localStorage.getItem("token")));
-    let transactionId = Number(window.location.pathname.substr(26))
+    let transactionId =transId
     let transactions = JSON.parse(localStorage.getItem('transactions'));
     let transactionIndex = transactions.findIndex(item => {
         return item.transactionId === transactionId
     })
-    transaction = { ...transaction, transactionId: Number(window.location.pathname.substr(26)), accountId: transactions[transactionIndex].accountId, userId: payload.userId }
+    transaction = { ...transaction, transactionId: transId, accountId: transactions[transactionIndex].accountId, userId: payload.userId }
     let accounts = JSON.parse(localStorage.getItem('accounts'))
     let accountIndex = accounts.findIndex(item => {
         return item.accountId === transactions[transactionIndex].accountId

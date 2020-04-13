@@ -19,7 +19,7 @@ class TransactionDisplay extends React.Component {
                 <div> {this.props.children.amount}</div>
                 <div className="TransactionItem">{getAccountNameById(this.props.children.accountId)}</div>
                 <MdDelete onClick={() => this.handleDelete(this.props.children.transactionId)} style={{cursor:"pointer"}}/>
-                <Link to={`/accounts/edittransaction/${this.props.children.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
+                <Link  onClick={()=>{this.props.onEditTransaction(this.props.children.transactionId)}} to={`/accounts/edittransaction/${this.props.children.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
             </div>
         )
     }

@@ -7,14 +7,9 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom';
-import Signin from './components/Users/signin';
-import Signup from './components/Users/Signup';
-// import Accounts from './components/Accounts/accounts';
-// import AddAccounts from './components/Accounts/addAccount';
-// import AddTransaction from './components/Transaction/AddTransaction/AddTransaction';
-// import SpecificAccount from './components/Accounts/SpecificAccount/SpecificAcccount';
-// //import Routes from './Routes/Routes';
-import Dashboard from './components/Accounts/Dashboard';
+import Signin from './containers/Users/signin';
+import Signup from './containers/Users/signup';
+import Dashboard from './Routes/routes';
 
 import { localStorageGetItem, localStorageSetItem } from './services/utils';
 
@@ -75,3 +70,7 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps)(App);
+//addAccount redirect
+//edittransaction accountName
+//date in edit Transaction
+//header fixed position

@@ -1,13 +1,14 @@
 import React ,{Component} from "react";
 import {Route ,Switch} from "react-router-dom";
-import Accounts from './accounts';
-import AddAccounts from './addAccount';
-import AddTransaction from '../Transactions/addTransaction';
-import SpecificAccount from '../../components/Transactions/specificAccountTransaction';
+import Accounts from '../containers/Accounts/accounts';
+import AddAccounts from '../containers/Accounts/addAccount';
+import AddTransaction from '../containers/Transactions/addTransaction';
+import SpecificAccount from '../containers/Transactions/specificAccountTransaction';
 import {connect} from 'react-redux';
-import {localStorageGetItem} from '../../services/utils';
+import {localStorageGetItem} from '../services/utils';
 import jwt from "jsonwebtoken";
 import { MdPersonOutline } from "react-icons/md";
+import EditTransaction from '../containers/Transactions/editTransaction'
 
 class Dashboard extends Component {
     username ;
@@ -33,7 +34,7 @@ class Dashboard extends Component {
                     <Switch>
                         <Route exact path={`${this.props.match.path}/addaccount`}><AddAccounts /></Route>
                         <Route path={`${this.props.match.path}/addtransaction`}>  <AddTransaction /> </Route>
-                        <Route path={`${this.props.match.path}/edittransaction`}><AddTransaction /> </Route>
+                        <Route path={`${this.props.match.path}/edittransaction`}><EditTransaction /> </Route>
                         <Route path={`${this.props.match.path}/specificAccountTransactions`}><SpecificAccount /> </Route>
                         <Route path={`${this.props.match.path}`} exact><Accounts /></Route>
                     </Switch>

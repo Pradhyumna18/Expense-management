@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { createUser } from '../../services/users';
 import { localStorageSetItem, localStorageGetItem } from '../../services/utils';
 import { Link, Redirect } from 'react-router-dom';
@@ -51,7 +50,7 @@ class Signup extends Component {
                         <Link to="/login">Have an account ? Signin here</Link>
                     </div>
                     <div className="InputDivision">
-                        <button className="Button" onClick={this.onSignup}>SIGNUP</button>
+                        <button className="Button" onClick={this.onSignup} style={{cursor:"pointer"}}>SIGNUP</button>
                     </div>
                 </div>
                 {this.state.onSignup ? <Redirect to='/login'></Redirect> : <Redirect to='/signup'></Redirect>}
@@ -60,28 +59,4 @@ class Signup extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    userName: state.Users.userName,
-    password: state.Users.password,
-    userId: state.Users.userId,
-})
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        userNameChange: (value) =>
-            dispatch({
-                type: "USERNAMECHANGE",
-                payload: value
-            }),
-
-
-        passwordChange: (value) =>
-            dispatch({
-                type: "PASSWORDCHANGE",
-                payload: value,
-            })
-
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Signup);
+export default Signup

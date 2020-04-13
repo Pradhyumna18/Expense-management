@@ -1,30 +1,23 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect,Link } from 'react-router-dom'
 import { addAccount } from '../../services/accounts'
 import './accounts.css'
 class AddAccounts extends React.Component {
-    state = {
-        accountName: '',
-        accountBalance: 0,
-        addedAccount: false
-    }
-    handleAddAccount = async () => {
-        let onAddAccount = addAccount(this.state.accountName, this.state.accountBalance)
+
+    handleAddAccount = () => {
+        let onAddAccount = addAccount(this.props.accountName, this.props.accountBalance)
         if (onAddAccount)
-            await this.setState({ addedAccount: true })
+            this.props.onAddAccount(onAddAccount)
         else
-            await this.setState({ addedAccount: false })
+            this.props.onAddAccount(onAddAccount)
     }
     handleAccountName = (e) => {
-        this.setState({ accountName: e.target.value })
+        this.props.accountNameChange(e.target.value)
     }
     handleAccountBalance = (e) => {
-        this.setState({ accountBalance: e.target.value })
+        this.props.accountBalanceChange(e.target.value)
     }
     render() {
-        let redirect = ''
-        if (this.state.addedAccount)
-            redirect = <Redirect to='/accounts'></Redirect>
         return (
             <div style={{ marginTop: "10%", textAlign: "center", marginLeft: "100px" }}>
                 <div  >
@@ -42,11 +35,10 @@ class AddAccounts extends React.Component {
                     <input type="text" onChange={this.handleAccountBalance} className="InputField"></input>
                 </div>
                 <div style={{ margin: "15px", marginLeft: "60px" }}>
-                    <button onClick={this.handleAddAccount} className="AddAccButton">Add Account</button>
+                    <Link to="/accounts" onClick={this.handleAddAccount} className="AddAccButton">Add Account</Link>
                 </div>
-                {redirect}
             </div>
         )
     }
 }
-export default AddAccounts
+export default AddAccounts;
