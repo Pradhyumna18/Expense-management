@@ -10,16 +10,15 @@ import './transactions.css'
 import Toast from 'light-toast'
 class SpecificAccountTransaction extends React.Component {
     handleDelete = async (transactionId) => {
-        console.log(transactionId)
         deleteTransaction(transactionId)
         this.setState({})
-        Toast.success("transaction deleted successfully",500)
+        Toast.success("transaction deleted successfully", 500)
     }
     render() {
         return (
             <div>
                 <div style={{ textAlign: "left" }}>
-                    <Link onClick={()=>{this.props.handleDivClicked(null)}} to="/accounts"><IoMdArrowRoundBack style={{ fontSize: "50px", color: "black" }}  /></Link>
+                    <Link onClick={() => { this.props.handleDivClicked(null) }} to="/accounts"><IoMdArrowRoundBack style={{ fontSize: "50px", color: "black" }} /></Link>
                 </div>
                 <div className="AccountCard">
                     {this.props.accountClicked}
@@ -28,7 +27,6 @@ class SpecificAccountTransaction extends React.Component {
                 <div style={{ marginLeft: "50px", marginTop: "10px", marginRight: "1200px", display: "flex", flexDirection: "column" }}>
                     <Link to={`/accounts/addtransaction/${this.props.accountClicked}`} className="AddTransactionButton">Add Transaction</Link>
                 </div>
-                {console.log(this.props.accountClicked)}
                 {getTransactionByAccountName(this.props.accountClicked).length !== 0 ? getTransactionByAccountName(this.props.accountClicked).map(obj => {
                     return <div style={{ height: "50px", width: "75vw", justifyContent: "space-around", display: "flex", border: "1px solid", fontSize: "20px", margin: "10px", padding: "20px" }}>
                         <div>   {obj.transactionType}</div>
@@ -37,7 +35,7 @@ class SpecificAccountTransaction extends React.Component {
                         <div> {obj.amount}</div>
                         <div className="TransactionItem">{getAccountNameById(obj.accountId)}</div>
                         <MdDelete onClick={() => this.handleDelete(obj.transactionId)} />
-                        <Link onClick={()=>{this.props.onEditTransaction(obj.transactionId)}} to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
+                        <Link onClick={() => { this.props.onEditTransaction(obj.transactionId) }} to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
                     </div>
                 }) : <h1>No Recent transactions</h1>}
             </div>

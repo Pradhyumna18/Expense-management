@@ -21,13 +21,6 @@ class Accounts extends React.Component {
     handleDivClicked = (name) => {
         this.props.handleDivClicked(name)
     }
-    // componentDidUpdate(prevState,prevProp){
-    //     if(this.state.divClicked!==prevState.divClicked)
-    //     this.props.toRedirect(<Redirect to={`/accounts/specificAccountTransactions/${this.props.accountClicked}`} />)
-    //   //  this.props.onDivClicked(<Redirect to={`/accounts/specificAccountTransactions/${this.props.accountClicked}`} />)
-    //     else
-    //     this.props.toRedirect(null)
-    // }
     render() {
         return (
             <div>
@@ -35,7 +28,7 @@ class Accounts extends React.Component {
                     <div style={{ textAlign: "left", marginLeft: "25px" }}>
                         <label style={{ fontWeight: "bold" }} >ACCOUNTS</label>
                     </div>
-                    <div style={{ overflowX: "auto", display: "flex" ,border:"black" }} >
+                    <div style={{ overflowX: "auto", display: "flex", border: "black" }} >
                         {getAccounts().map(obj => {
                             return (<div className="AccountCard" style={{ cursor: "pointer" }} onClick={() => { this.handleDivClicked(obj.accountName) }}>
                                 {obj.accountName}
@@ -58,7 +51,6 @@ class Accounts extends React.Component {
                         return <TransactionDisplay onDelete={this.handleDelete}>{item}</TransactionDisplay>
                     }) : <h1>NO RECENT TRANSACTIONS</h1>}
                 </div>
-                {/* {this.props.redirect} */}
                 {this.props.accountClicked ? <Redirect to={`/accounts/specificAccountTransactions/${this.props.accountClicked}`} /> : null}
             </div>
         )

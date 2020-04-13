@@ -72,7 +72,6 @@ export const getTransactionByAccountName = (accountName) => {
 
 export const getTransactionByTransactionId = (transactionId) => {
     let transactions = JSON.parse(localStorage.getItem("transactions"));
-    //let transactionId = Number(window.location.pathname.substr(26))
     let transactionByTransactionId = transactions.filter(obj => {
         return obj.transactionId == transactionId
 

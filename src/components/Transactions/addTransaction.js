@@ -1,7 +1,7 @@
 import React from 'react'
-import { Redirect, Link } from 'react-router-dom'
-import { addTransaction, editTransaction, getTransactionByTransactionId } from '../../services/transactions'
-import { getAccounts, getAccountNameById } from '../../services/accounts'
+import { Link } from 'react-router-dom'
+import { addTransaction } from '../../services/transactions'
+import { getAccounts } from '../../services/accounts'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
@@ -38,7 +38,7 @@ class AddTransactions extends React.Component {
         this.props.handleDescription('')
         this.props.handleAmount('')
         this.props.handleDate('')
-        Toast.success("added transaction successfully",500)
+        Toast.success("added transaction successfully", 500)
 
     }
     handleTransactionType = (e) => {
@@ -108,9 +108,7 @@ class AddTransactions extends React.Component {
                         className="InputField"
                     />
                 </div>
-
                 <Link onClick={this.handleAddTransaction} to="/accounts" className="AddTranscButton" style={{ marginLeft: "50px" }}> Add Transaction</Link>
-                {/* {this.props.redirect} */}
             </div>
         )
     }

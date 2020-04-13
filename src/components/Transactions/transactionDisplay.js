@@ -1,6 +1,6 @@
 import React from 'react'
 import { deleteTransaction } from '../../services/transactions'
-import {  Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FiEdit } from "react-icons/fi"
 import { MdDelete } from "react-icons/md"
 import './transactions.css'
@@ -10,8 +10,7 @@ class TransactionDisplay extends React.Component {
     handleDelete = async () => {
         await deleteTransaction(this.props.children.transactionId)
         this.props.onDelete()
-        Toast.success("transaction deleted",500)
-
+        Toast.success("transaction deleted", 500)
     }
     render() {
         return (
@@ -21,8 +20,8 @@ class TransactionDisplay extends React.Component {
                 <div>{this.props.children.date}</div>
                 <div> {this.props.children.amount}</div>
                 <div className="TransactionItem">{getAccountNameById(this.props.children.accountId)}</div>
-                <MdDelete onClick={() => this.handleDelete(this.props.children.transactionId)} style={{cursor:"pointer"}}/>
-                <Link  onClick={()=>{this.props.onEditTransaction(this.props.children.transactionId)}} to={`/accounts/edittransaction/${this.props.children.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
+                <MdDelete onClick={() => this.handleDelete(this.props.children.transactionId)} style={{ cursor: "pointer" }} />
+                <Link onClick={() => { this.props.onEditTransaction(this.props.children.transactionId) }} to={`/accounts/edittransaction/${this.props.children.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
             </div>
         )
     }

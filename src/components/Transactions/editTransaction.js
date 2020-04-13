@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {  editTransaction, getTransactionByTransactionId } from '../../services/transactions'
+import { editTransaction, getTransactionByTransactionId } from '../../services/transactions'
 import { getAccounts, getAccountNameById } from '../../services/accounts'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,14 +16,11 @@ class EditTransaction extends React.Component {
             localStorage.setItem("transactionId", 0)
         }
         let obj = getTransactionByTransactionId(this.props.transactionClicked)
-        console.log(obj)
         this.props.handleTransactionType(obj[0].transactionType)
-       let accountName=getAccountNameById(obj[0].accountId)
+        let accountName = getAccountNameById(obj[0].accountId)
         this.props.handleAccountName(accountName)
         this.props.handleDescription(obj[0].description)
         this.props.handleAmount(obj[0].amount)
-        // this.props.handleDate(obj[0].date)
-        console.log(obj)
     }
     handleEditTransaction = async () => {
         let transaction = {
@@ -33,15 +30,13 @@ class EditTransaction extends React.Component {
             date: moment(this.props.date).format('DD-MM-YYYY'),
             accountName: this.props.accountName
         }
-        console.log(this.props.transactionClicked)
-
         editTransaction(transaction, this.props.transactionClicked)
         this.props.handleTransactionType('')
         this.props.handleAccountName('')
         this.props.handleDescription('')
         this.props.handleAmount('')
         this.props.handleDate('')
-        Toast.success("edited transaction successfully",500)
+        Toast.success("edited transaction successfully", 500)
     }
     handleTransactionType = (e) => {
         this.props.handleTransactionType(e.target.value)
@@ -59,8 +54,6 @@ class EditTransaction extends React.Component {
         this.props.handleDate(date)
     }
     render() {
-
-        console.log(this.props.transactionClicked)
         return (
             <div style={{ textAlign: "left", marginLeft: "50px" }}>
                 <h2> TRANSACTION</h2>
