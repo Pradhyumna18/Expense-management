@@ -31,7 +31,7 @@ class Signup extends Component {
 
         await this.setState({ onSignup: createUser(user) })
         if (this.state.onSignup)
-           Toast.success("signup successful")
+           Toast.success("signup successful",500)
         else
             Toast.fail("username already exists",500)
 

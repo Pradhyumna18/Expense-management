@@ -13,7 +13,13 @@ class AddTransactions extends React.Component {
         let transactionId = localStorage.getItem("transactionId");
         if (!transactionId) {
             localStorage.setItem("transactionId", 0)
+           
         }
+        this.props.handleTransactionType('')
+        this.props.handleAccountName('')
+        this.props.handleDescription('')
+        this.props.handleAmount('')
+        this.props.handleDate('')
     }
     handleAddTransaction = () => {
         let transaction = {

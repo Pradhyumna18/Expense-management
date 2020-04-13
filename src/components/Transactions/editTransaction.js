@@ -21,6 +21,7 @@ class EditTransaction extends React.Component {
         this.props.handleAccountName(accountName)
         this.props.handleDescription(obj[0].description)
         this.props.handleAmount(obj[0].amount)
+      // this.props.handleDate(new Date(obj[0].date))
     }
     handleEditTransaction = async () => {
         let transaction = {
@@ -52,6 +53,9 @@ class EditTransaction extends React.Component {
     }
     handleDate = (date) => {
         this.props.handleDate(date)
+    }
+    componentDidMount(){
+
     }
     render() {
         return (

@@ -34,7 +34,7 @@ class SpecificAccountTransaction extends React.Component {
                         <div>{obj.date}</div>
                         <div> {obj.amount}</div>
                         <div className="TransactionItem">{getAccountNameById(obj.accountId)}</div>
-                        <MdDelete onClick={() => this.handleDelete(obj.transactionId)} />
+                        <MdDelete onClick={() => this.handleDelete(obj.transactionId)} style={{cursor:"pointer"}}/>
                         <Link onClick={() => { this.props.onEditTransaction(obj.transactionId) }} to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
                     </div>
                 }) : <h1>No Recent transactions</h1>}

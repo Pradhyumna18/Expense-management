@@ -2,6 +2,7 @@ import Signin from '../../components/Users/signin'
 import { verifyUser } from '../../services/users';
 import { localStorageSetItem } from '../../services/utils';
 import {connect} from 'react-redux'
+import Toast from 'light-toast'
 const mapStateToProps = (state) => ({
     userName: state.Users.userName,
     password: state.Users.password,
@@ -24,7 +25,8 @@ const mapDispatchToProps = (dispatch) => {
 
         onSignin: (user) => {
             let token = verifyUser(user)
-
+           if(!token)
+           Toast.fail("signin failed",500)
             localStorageSetItem("token", token);
 
             dispatch({

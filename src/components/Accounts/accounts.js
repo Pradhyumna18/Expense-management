@@ -46,7 +46,7 @@ class Accounts extends React.Component {
                         <Link to="/accounts/addtransaction" className="AddTransactionButton">Add Transaction</Link>
                     </div>
                 </div>
-                <div style={{ marginLeft: "50px" }} >
+                <div style={{ marginLeft: "50px"}} >
                     {getTransactions().length !== 0 ? getTransactions().map(item => {
                         return <TransactionDisplay onDelete={this.handleDelete}>{item}</TransactionDisplay>
                     }) : <h1>NO RECENT TRANSACTIONS</h1>}
