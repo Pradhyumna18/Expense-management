@@ -28,8 +28,9 @@ class Signup extends Component {
             userName: this.props.userName,
             password: this.props.password
         }
-
-        await this.setState({ onSignup: createUser(user) })
+       let bool=await createUser(user)
+       console.log(bool)
+        await this.setState({ onSignup: bool })
         if (this.state.onSignup)
            Toast.success("signup successful",500)
         else

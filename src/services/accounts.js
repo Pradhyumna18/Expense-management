@@ -1,51 +1,66 @@
 import jwt from 'jsonwebtoken'
-import {  localStorageGetItem } from './utils';
-export const addAccount = (accountName, accBalance) => {
-    let payload = jwt.decode(JSON.parse(localStorage.getItem("token")))
-    let accounts = JSON.parse(localStorage.getItem('accounts'));
-    let accountIndex = accounts.findIndex(item => {
-        return (item.accountName === accountName) && (item.userId == payload.userId)
-    })
-    if (accountIndex === -1) {
-        let accId = JSON.parse(localStorage.getItem('accountId'))
-        accId++
-        let obj = {
-            accountId: accId,
+import axios from 'axios'
+export const addAccount = async (accountName, accBalance) => {
+    try {
+        let payload = jwt.decode(JSON.parse(localStorage.getItem("token")))
+        let res = await axios.post('http://localhost:8000/addAccount', {
             accountName: accountName,
             accountBalance: accBalance,
             userId: payload.userId
+        })
+        if (res.data.message == "account name already exists") {
+            return false
         }
-        accounts.push(obj)
-        localStorage.setItem("accounts", JSON.stringify(accounts))
-        localStorage.setItem('accountId', JSON.stringify(accId))
-        return true
+        else {
+            return true
+        }
     }
-    return false
+    catch (err) {
+        return false
+    }
 
 }
-export const getAccounts = () => {
-    let accounts = JSON.parse(localStorage.getItem('accounts'));
-    let payload = jwt.decode(JSON.parse(localStorage.getItem('token')));
-    let userAccounts = accounts.filter(obj => {
-        return obj.userId === payload.userId
-    })
-    return userAccounts;
-}
-export const getAccountBalance = (accountName) => {
-    let payload = jwt.decode(JSON.parse(localStorage.getItem("token")));
-    let accounts = JSON.parse(localStorage.getItem("accounts"));
-    let accBalance = accounts.map(obj => {
-        if (obj.accountName == accountName && obj.userId === payload.userId)
-            return obj.accountBalance;
-    })
-    return accBalance;
+export const getAccounts = async () => {
+    try {
+        let payload = jwt.decode(JSON.parse(localStorage.getItem("token")))
+        console.log("services")
+        let response = await axios.get('http://localhost:8000/getAccountsByUserId/' + payload.userId)
+        return response.data.accounts
+    }
+    catch (err) {
+        console.log(false)
+        return false
+    }
 
 }
-export const getAccountNameById = (accId) => {
-    let accounts = localStorageGetItem('accounts');
-    let payload = jwt.decode(localStorageGetItem("token"));
-    let accName = accounts.filter(obj => {
-        return obj.accountId == accId && obj.userId == payload.userId
-    })
-    return accName[0].accountName;
+export const getAccountBalance = async (accountName) => {
+
+    try {
+        accountName = window.location.pathname.substr(38)
+        let payload = jwt.decode(JSON.parse(localStorage.getItem("token")))
+        console.log("axios", payload.userId)
+        let response = await axios.get('http://localhost:8000/getAccountBalance/' + payload.userId + '/' + accountName)
+        console.log(response.data.balance)
+        return response.data.balance
+    }
+    catch (err) {
+        console.log(false)
+        return false
+    }
+
+}
+export const getAccountNameById = async (accId) => {
+
+    try {
+        let payload = jwt.decode(JSON.parse(localStorage.getItem("token")))
+        console.log("axios", payload.userId)
+        let response = await axios.get('http://localhost:8000/getAccountNameById/' + payload.userId + '/' + accId)
+        console.log(response.data.accountName)
+        return response.data.accountName
+    }
+    catch (err) {
+        console.log(false)
+        return false
+    }
+
 }

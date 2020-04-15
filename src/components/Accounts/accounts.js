@@ -8,13 +8,18 @@ class Accounts extends React.Component {
     state = {
         onDelete: false,
         divClicked: "",
+        accounts: [],
+        transactions:[]
     }
-    componentWillMount() {
-        let accountId = localStorage.getItem("accountId");
-        if (!accountId) {
-            localStorage.setItem("accountId", 0)
-        }
+    async componentWillMount(){
+        let acc = await getAccounts()
+        await this.setState({ accounts: acc })
+        console.log(acc)
+        console.log("component will mount")
+        let trans=await getTransactions()
+        await this.setState({transactions:trans})
     }
+  
     handleDelete = () => {
         this.setState({ onDelete: true })
     }
@@ -22,14 +27,16 @@ class Accounts extends React.Component {
         this.props.handleDivClicked(name)
     }
     render() {
+        console.log("hhhh")
         return (
+
             <div>
                 <div style={{ margin: "25px" }}>
                     <div style={{ textAlign: "left", marginLeft: "25px" }}>
                         <label style={{ fontWeight: "bold" }} >ACCOUNTS</label>
                     </div>
                     <div style={{ overflowX: "auto", display: "flex", border: "black" }} >
-                        {getAccounts().map(obj => {
+                        {this.state.accounts.map(obj => {
                             return (<div className="AccountCard" style={{ cursor: "pointer" }} onClick={() => { this.handleDivClicked(obj.accountName) }}>
                                 {obj.accountName}
                                 <b style={{ fontSize: "larger" }}> ₹ {obj.accountBalance} </b>
@@ -46,8 +53,8 @@ class Accounts extends React.Component {
                         <Link to="/accounts/addtransaction" className="AddTransactionButton">Add Transaction</Link>
                     </div>
                 </div>
-                <div style={{ marginLeft: "50px"}} >
-                    {getTransactions().length !== 0 ? getTransactions().map(item => {
+                <div style={{ marginLeft: "50px" }} >
+                    {this.state.transactions.length !== 0 ? this.state.transactions.map(item => {
                         return <TransactionDisplay onDelete={this.handleDelete}>{item}</TransactionDisplay>
                     }) : <h1>NO RECENT TRANSACTIONS</h1>}
                 </div>

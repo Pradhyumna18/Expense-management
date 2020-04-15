@@ -23,8 +23,8 @@ const mapDispatchToProps = (dispatch) => {
                 payload: value,
             }),
 
-        onSignin: (user) => {
-            let token = verifyUser(user)
+        onSignin:async (user) => {
+            let token =await verifyUser(user)
            if(!token)
            Toast.fail("signin failed",500)
             localStorageSetItem("token", token);

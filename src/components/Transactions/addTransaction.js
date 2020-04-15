@@ -9,12 +9,17 @@ import './transactions.css'
 import moment from 'moment'
 import Toast from 'light-toast'
 class AddTransactions extends React.Component {
-    componentWillMount() {
+    state={
+        accounts:[]
+    }
+  async  componentWillMount() {
         let transactionId = localStorage.getItem("transactionId");
         if (!transactionId) {
             localStorage.setItem("transactionId", 0)
            
         }
+        let acc = await getAccounts()
+        await this.setState({ accounts: acc })
         this.props.handleTransactionType('')
         this.props.handleAccountName('')
         this.props.handleDescription('')
@@ -26,7 +31,7 @@ class AddTransactions extends React.Component {
             transactionType: this.props.transactionType,
             description: this.props.description,
             amount: this.props.amount,
-            date: moment(this.props.date).format('DD-MM-YYYY'),
+            date: this.props.date,
             accountName: this.props.accountName
         }
         if (!this.props.accountName)
@@ -90,7 +95,7 @@ class AddTransactions extends React.Component {
                         <br />
                         <select value={this.props.accountName} onChange={this.handleAccountName} className="InputField">
                             <option label="Select an Account "></option>
-                            {getAccounts().map(obj => {
+                            {this.state.accounts.map(obj => {
                                 return (<option label={obj.accountName}>{obj.accountName}</option>);
                             })}
                         </select>

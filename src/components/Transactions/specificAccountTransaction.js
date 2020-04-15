@@ -7,13 +7,29 @@ import { getAccountNameById } from '../../services/accounts';
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import './transactions.css'
+import moment from 'moment'
 import Toast from 'light-toast'
 class SpecificAccountTransaction extends React.Component {
+    state={
+        accountBalance:null,
+        transaction:[],
+        accountName:''
+    }
     handleDelete = async (transactionId) => {
-        deleteTransaction(transactionId)
+        await deleteTransaction(transactionId)
         this.setState({})
         Toast.success("transaction deleted successfully", 500)
     }
+   async componentWillMount(){
+       console.log(this.props.accountClicked)
+        let accBalance=await getAccountBalance(this.props.accountClicked)
+        await this.setState({accountBalance:accBalance})
+        let trans=await getTransactionByAccountName(this.props.accountClicked)
+        await this.setState({transaction:trans})
+        console.log(this.state.transaction)
+        
+    }
+   
     render() {
         return (
             <div>
@@ -21,21 +37,20 @@ class SpecificAccountTransaction extends React.Component {
                     <Link onClick={() => { this.props.handleDivClicked(null) }} to="/accounts"><IoMdArrowRoundBack style={{ fontSize: "50px", color: "black" }} /></Link>
                 </div>
                 <div className="AccountCard">
-                    {this.props.accountClicked}
-                    <b style={{ fontSize: "larger" }}> ₹ {getAccountBalance(this.props.accountClicked)} </b>
+                    {window.location.pathname.substr(38)}
+                    <b style={{ fontSize: "larger" }}> ₹ {this.state.accountBalance} </b>
                 </div>
                 <div style={{ marginLeft: "50px", marginTop: "10px", marginRight: "1200px", display: "flex", flexDirection: "column" }}>
                     <Link to={`/accounts/addtransaction/${this.props.accountClicked}`} className="AddTransactionButton">Add Transaction</Link>
                 </div>
-                {getTransactionByAccountName(this.props.accountClicked).length !== 0 ? getTransactionByAccountName(this.props.accountClicked).map(obj => {
+                {this.state.transaction.length !== 0 ? this.state.transaction.map(obj => {
                     return <div style={{ height: "50px", width: "75vw", justifyContent: "space-around", display: "flex", border: "1px solid", fontSize: "20px", margin: "10px", padding: "20px" }}>
                         <div>   {obj.transactionType}</div>
                         <div> {obj.description}</div>
-                        <div>{obj.date}</div>
+                        <div>{moment(obj.date).format('DD-MM-YYYY')}</div>
                         <div> {obj.amount}</div>
-                        <div className="TransactionItem">{getAccountNameById(obj.accountId)}</div>
-                        <MdDelete onClick={() => this.handleDelete(obj.transactionId)} style={{cursor:"pointer"}}/>
-                        <Link onClick={() => { this.props.onEditTransaction(obj.transactionId) }} to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
+                        <MdDelete onClick={() => this.handleDelete(obj.id)} style={{cursor:"pointer"}}/>
+                        <Link onClick={() => { this.props.onEditTransaction(obj.id) }} to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
                     </div>
                 }) : <h1>No Recent transactions</h1>}
             </div>

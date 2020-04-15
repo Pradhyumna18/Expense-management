@@ -5,11 +5,13 @@ import './accounts.css'
 import Toast from 'light-toast'
 class AddAccounts extends React.Component {
 
-    handleAddAccount = () => {
-        let onAddAccount = addAccount(this.props.accountName, this.props.accountBalance)
+    handleAddAccount = async () => {
+        let onAddAccount = await addAccount(this.props.accountName, this.props.accountBalance)
+        console.log(onAddAccount)
         if (onAddAccount) {
             this.props.onAddAccount(onAddAccount)
             Toast.success("account added successfully", 500);
+            console.log("added")
         }
         else {
             this.props.onAddAccount(onAddAccount)

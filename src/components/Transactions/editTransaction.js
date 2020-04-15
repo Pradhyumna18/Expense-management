@@ -9,20 +9,22 @@ import './transactions.css'
 import moment from 'moment'
 import Toast from 'light-toast'
 class EditTransaction extends React.Component {
-
-    componentWillMount() {
+state={
+    accounts:[]
+}
+   async componentWillMount() {
         let transactionId = localStorage.getItem("transactionId");
         if (!transactionId) {
             localStorage.setItem("transactionId", 0)
         }
         if (this.props.transactionClicked) {
-            let obj = getTransactionByTransactionId(this.props.transactionClicked)
-            this.props.handleTransactionType(obj[0].transactionType)
-            let accountName = getAccountNameById(obj[0].accountId)
+            let obj =await getTransactionByTransactionId(this.props.transactionClicked)
+            this.props.handleTransactionType(obj.transactionType)
+            let accountName = await getAccountNameById(obj.accountId)
             this.props.handleAccountName(accountName)
-            this.props.handleDescription(obj[0].description)
-            this.props.handleAmount(obj[0].amount)
-            // this.props.handleDate(new Date(obj[0].date))
+            this.props.handleDescription(obj.description)
+            this.props.handleAmount(obj.amount)
+            this.props.handleDate(new Date(obj.date))
         }
         else {
             this.props.handleTransactionType('')
@@ -31,6 +33,8 @@ class EditTransaction extends React.Component {
             this.props.handleAmount('')
             this.props.handleDate('')
         }
+        let acc = await getAccounts()
+        await this.setState({ accounts: acc })
     }
     handleEditTransaction = async () => {
         let transaction = {
@@ -40,7 +44,7 @@ class EditTransaction extends React.Component {
             date: moment(this.props.date).format('DD-MM-YYYY'),
             accountName: this.props.accountName
         }
-        editTransaction(transaction, this.props.transactionClicked)
+       await editTransaction(transaction, this.props.transactionClicked)
         this.props.handleTransactionType('')
         this.props.handleAccountName('')
         this.props.handleDescription('')
@@ -94,7 +98,7 @@ class EditTransaction extends React.Component {
                         <br />
                         <select value={this.props.accountName} onChange={this.handleAccountName} className="InputField">
                             <option label="Select an Account "></option>
-                            {getAccounts().map(obj => {
+                            {this.state.accounts.map(obj => {
                                 return (<option label={obj.accountName}>{obj.accountName}</option>);
                             })}
                         </select>
