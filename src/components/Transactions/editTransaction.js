@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { editTransaction, getTransactionByTransactionId } from '../../services/transactions'
 import { getAccounts, getAccountNameById } from '../../services/accounts'
 import DatePicker from "react-datepicker";
@@ -9,16 +9,17 @@ import './transactions.css'
 import moment from 'moment'
 import Toast from 'light-toast'
 class EditTransaction extends React.Component {
-state={
-    accounts:[]
-}
-   async componentWillMount() {
+    state = {
+        accounts: [],
+        onEditTransaction: false
+    }
+    async componentWillMount() {
         let transactionId = localStorage.getItem("transactionId");
         if (!transactionId) {
             localStorage.setItem("transactionId", 0)
         }
         if (this.props.transactionClicked) {
-            let obj =await getTransactionByTransactionId(this.props.transactionClicked)
+            let obj = await getTransactionByTransactionId(this.props.transactionClicked)
             this.props.handleTransactionType(obj.transactionType)
             let accountName = await getAccountNameById(obj.accountId)
             this.props.handleAccountName(accountName)
@@ -35,6 +36,7 @@ state={
         }
         let acc = await getAccounts()
         await this.setState({ accounts: acc })
+        this.setState({ onEditTransaction: false })
     }
     handleEditTransaction = async () => {
         let transaction = {
@@ -44,7 +46,10 @@ state={
             date: moment(this.props.date).format('DD-MM-YYYY'),
             accountName: this.props.accountName
         }
-       await editTransaction(transaction, this.props.transactionClicked)
+        if (editTransaction(transaction, this.props.transactionClicked))
+            this.setState({ onEditTransaction: true })
+        else
+            this.setState({ onEditTransaction: false })
         this.props.handleTransactionType('')
         this.props.handleAccountName('')
         this.props.handleDescription('')
@@ -123,8 +128,10 @@ state={
                     />
                 </div>
 
-                <Link onClick={this.handleEditTransaction} to="/accounts" className="AddTranscButton" style={{ marginLeft: "50px" }}> Edit Transaction</Link>
+                <button onClick={this.handleEditTransaction} to="/accounts" className="AddTranscButton" style={{ marginLeft: "50px" }}> Edit Transaction</button>
+                {this.state.onEditTransaction ? <Redirect to='/accounts'></Redirect> : null}
             </div>
+
         )
     }
 }

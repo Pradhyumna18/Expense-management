@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { addTransaction } from '../../services/transactions'
 import { getAccounts } from '../../services/accounts'
 import DatePicker from "react-datepicker";
@@ -9,14 +9,15 @@ import './transactions.css'
 import moment from 'moment'
 import Toast from 'light-toast'
 class AddTransactions extends React.Component {
-    state={
-        accounts:[]
+    state = {
+        accounts: [],
+        onAddTransaction: false
     }
-  async  componentWillMount() {
+    async  componentWillMount() {
         let transactionId = localStorage.getItem("transactionId");
         if (!transactionId) {
             localStorage.setItem("transactionId", 0)
-           
+
         }
         let acc = await getAccounts()
         await this.setState({ accounts: acc })
@@ -25,8 +26,9 @@ class AddTransactions extends React.Component {
         this.props.handleDescription('')
         this.props.handleAmount('')
         this.props.handleDate('')
+        this.setState({ onAddTransaction: false })
     }
-    handleAddTransaction = () => {
+    handleAddTransaction = async () => {
         let transaction = {
             transactionType: this.props.transactionType,
             description: this.props.description,
@@ -39,11 +41,13 @@ class AddTransactions extends React.Component {
                 ...transaction,
                 accountName: this.props.accountClicked
             }
-        let onAddTransaction = addTransaction(transaction)
-        if (onAddTransaction)
-            this.props.onAddTransaction(true)
+        let onAddTransaction = await addTransaction(transaction)
+        if (onAddTransaction) {
+          await  this.setState({ onAddTransaction: true })
+          //  this.props.onAddTransaction(true)
+        }
         else
-            this.props.onAddTransaction(false)
+            this.setState({onAddTransaction:false})
         this.props.handleTransactionType('')
         this.props.handleAccountName('')
         this.props.handleDescription('')
@@ -119,7 +123,8 @@ class AddTransactions extends React.Component {
                         className="InputField"
                     />
                 </div>
-                <Link onClick={this.handleAddTransaction} to="/accounts" className="AddTranscButton" style={{ marginLeft: "50px" }}> Add Transaction</Link>
+                <button onClick={this.handleAddTransaction}  className="AddTranscButton" style={{ marginLeft: "50px" }}> Add Transaction</button>
+                {this.state.onAddTransaction ? <Redirect to='/accounts'></Redirect> : null}
             </div>
         )
     }

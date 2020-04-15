@@ -53,9 +53,9 @@ export const getAccountNameById = async (accId) => {
 
     try {
         let payload = jwt.decode(JSON.parse(localStorage.getItem("token")))
-        console.log("axios", payload.userId)
+      //  console.log("axios", payload.userId)
         let response = await axios.get('http://localhost:8000/getAccountNameById/' + payload.userId + '/' + accId)
-        console.log(response.data.accountName)
+      //  console.log(response.data.accountName)
         return response.data.accountName
     }
     catch (err) {
