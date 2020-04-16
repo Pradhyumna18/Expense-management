@@ -53,7 +53,7 @@ class AddAccounts extends React.Component {
                     <input type="text" onChange={this.handleAccountBalance} className="InputField"></input>
                 </div>
                 <div style={{ margin: "15px", marginLeft: "60px" }}>
-                    <button onClick={this.handleAddAccount} className="AddAccButton">Add Account</button>
+                    <button onClick={this.handleAddAccount} className="AddAccButton" style={{width:"200px" , height:"50px"}}>Add Account</button>
                     {this.state.onAddAccount ? <Redirect to='/accounts'></Redirect> : null}
                 </div>
             </div>

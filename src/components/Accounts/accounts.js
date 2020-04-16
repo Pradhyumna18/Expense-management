@@ -25,10 +25,12 @@ class Accounts extends React.Component {
     handleDelete = async () => {
         this.setState({ onDelete: true })
         console.log("dele")
+        let acc = await getAccounts()
+        await this.setState({ accounts: acc })
         let trans = await getTransactions()
         console.log(trans)
         await this.setState({ transactions: trans })
-        this.setState({ onDelete: false })
+       this.setState({ onDelete: false })
     }
     handleDivClicked = (name) => {
         this.props.handleDivClicked(name)
@@ -66,7 +68,7 @@ class Accounts extends React.Component {
                     }) : <h1>NO RECENT TRANSACTIONS</h1>}
                 </div>
                 {this.props.accountClicked ? <Redirect to={`/accounts/specificAccountTransactions/${this.props.accountClicked}`} /> : null}
-                {/* {this.state.onDelete?<Redirect to='/accounts'></Redirect>:null} */}
+               
             </div>
         )
     }

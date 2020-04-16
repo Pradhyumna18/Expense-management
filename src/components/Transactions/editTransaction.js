@@ -128,7 +128,7 @@ class EditTransaction extends React.Component {
                     />
                 </div>
 
-                <button onClick={this.handleEditTransaction} to="/accounts" className="AddTranscButton" style={{ marginLeft: "50px" }}> Edit Transaction</button>
+                <button onClick={this.handleEditTransaction} to="/accounts" className="AddTranscButton" style={{ marginLeft: "50px",width:"200px" , height:"50px" }}> Edit Transaction</button>
                 {this.state.onEditTransaction ? <Redirect to='/accounts'></Redirect> : null}
             </div>
 

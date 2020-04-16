@@ -123,7 +123,7 @@ class AddTransactions extends React.Component {
                         className="InputField"
                     />
                 </div>
-                <button onClick={this.handleAddTransaction}  className="AddTranscButton" style={{ marginLeft: "50px" }}> Add Transaction</button>
+                <button onClick={this.handleAddTransaction}  className="AddTranscButton" style={{ marginLeft: "50px",width:"200px" , height:"50px" }}> Add Transaction</button>
                 {this.state.onAddTransaction ? <Redirect to='/accounts'></Redirect> : null}
             </div>
         )
