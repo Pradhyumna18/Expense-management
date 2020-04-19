@@ -22,9 +22,7 @@ export const addTransaction = async (transaction) => {
     catch (err) {
         return false
     }
-
 }
-
 
 
 export const getTransactions = async () => {
@@ -50,7 +48,6 @@ export const getTransactionByAccountName = async (accountName) => {
         return response.data.transactions
     }
     catch (err) {
-        console.log(false)
         return false
     }
 
@@ -64,7 +61,6 @@ export const getTransactionByTransactionId = async (transactionId) => {
         return response.data.transaction
     }
     catch (err) {
-        console.log(false)
         return false
     }
 
@@ -76,7 +72,6 @@ export const deleteTransaction = async (transactionId) => {
         await axios.delete('http://localhost:8000/deleteTransaction/' + transactionId)
     }
     catch (err) {
-        console.log(false)
         return false
     }
 }
@@ -92,6 +87,7 @@ export const editTransaction = async (transaction, transId) => {
             transactionId: transId,
             userId: payload.userId
         })
+        return true
     }
     catch (err) {
         return false

@@ -1,12 +1,11 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import {  Redirect } from 'react-router-dom'
 import { addTransaction } from '../../services/transactions'
 import { getAccounts } from '../../services/accounts'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import './transactions.css'
-import moment from 'moment'
 import Toast from 'light-toast'
 class AddTransactions extends React.Component {
     state = {
@@ -44,7 +43,6 @@ class AddTransactions extends React.Component {
         let onAddTransaction = await addTransaction(transaction)
         if (onAddTransaction) {
           await  this.setState({ onAddTransaction: true })
-          //  this.props.onAddTransaction(true)
         }
         else
             this.setState({onAddTransaction:false})
@@ -123,7 +121,7 @@ class AddTransactions extends React.Component {
                         className="InputField"
                     />
                 </div>
-                <button onClick={this.handleAddTransaction}  className="AddTranscButton" style={{ marginLeft: "50px",width:"200px" , height:"50px" }}> Add Transaction</button>
+                <button onClick={this.handleAddTransaction}  className="AddTranscButton" style={{ marginLeft: "50px",width:"200px" , height:"50px",cursor:"pointer" }}> Add Transaction</button>
                 {this.state.onAddTransaction ? <Redirect to='/accounts'></Redirect> : null}
             </div>
         )

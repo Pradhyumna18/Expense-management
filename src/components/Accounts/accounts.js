@@ -14,29 +14,23 @@ class Accounts extends React.Component {
     async componentWillMount() {
         let acc = await getAccounts()
         await this.setState({ accounts: acc })
-
-        console.log("component will mount")
         let trans = await getTransactions()
-        console.log(trans)
         await this.setState({ transactions: trans })
         this.setState({ onDelete: false })
     }
 
     handleDelete = async () => {
         this.setState({ onDelete: true })
-        console.log("dele")
         let acc = await getAccounts()
         await this.setState({ accounts: acc })
         let trans = await getTransactions()
-        console.log(trans)
         await this.setState({ transactions: trans })
-       this.setState({ onDelete: false })
+        this.setState({ onDelete: false })
     }
     handleDivClicked = (name) => {
         this.props.handleDivClicked(name)
     }
     render() {
-        console.log("hhhh")
         return (
 
             <div>
@@ -68,7 +62,7 @@ class Accounts extends React.Component {
                     }) : <h1>NO RECENT TRANSACTIONS</h1>}
                 </div>
                 {this.props.accountClicked ? <Redirect to={`/accounts/specificAccountTransactions/${this.props.accountClicked}`} /> : null}
-               
+
             </div>
         )
     }

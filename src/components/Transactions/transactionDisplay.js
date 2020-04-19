@@ -8,25 +8,30 @@ import { getAccountNameById } from '../../services/accounts'
 import Toast from 'light-toast'
 import moment from 'moment'
 class TransactionDisplay extends React.Component {
-    state={
-        accountName:'',
-        onDeleteTransaction:false
+    state = {
+        accountName: '',
+        onDeleteTransaction: false
     }
     handleDelete = async (transactionId) => {
-        console.log(transactionId)
-       await deleteTransaction(transactionId)
-       
+        await deleteTransaction(transactionId)
         let accName = await getAccountNameById(this.props.children.accountId)
-        await this.setState({accountName:accName})
+        await this.setState({ accountName: accName })
         this.props.onDelete()
         Toast.success("transaction deleted", 500)
     }
     async componentWillMount() {
         let accName = await getAccountNameById(this.props.children.accountId)
-        await this.setState({accountName:accName,onDeleteTransaction:false})
-        console.log(this.state.accountName)
-        
+        await this.setState({ accountName: accName, onDeleteTransaction: false })
     }
+    async componentDidUpdate(prevProps) {
+        if (prevProps.children.accountId !== this.props.children.accountId) {
+            let accName = await getAccountNameById(this.props.children.accountId);
+            await this.setState({
+                accountName: accName,
+            })
+        }
+    }
+
     render() {
         return (
             <div style={{ height: "50px", width: "75vw", justifyContent: "space-around", display: "flex", border: "1px solid", fontSize: "20px", margin: "10px", padding: "20px" }}>
@@ -37,7 +42,7 @@ class TransactionDisplay extends React.Component {
                 <div className="TransactionItem">{this.state.accountName}</div>
                 <MdDelete onClick={() => this.handleDelete(this.props.children.id)} style={{ cursor: "pointer" }} />
                 <Link onClick={() => { this.props.onEditTransaction(this.props.children.id) }} to={`/accounts/edittransaction/${this.props.children.id}`}><FiEdit style={{ color: "black" }} /></Link>
-              
+
             </div>
         )
     }

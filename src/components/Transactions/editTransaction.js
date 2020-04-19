@@ -14,10 +14,6 @@ class EditTransaction extends React.Component {
         onEditTransaction: false
     }
     async componentWillMount() {
-        let transactionId = localStorage.getItem("transactionId");
-        if (!transactionId) {
-            localStorage.setItem("transactionId", 0)
-        }
         if (this.props.transactionClicked) {
             let obj = await getTransactionByTransactionId(this.props.transactionClicked)
             this.props.handleTransactionType(obj.transactionType)
@@ -46,7 +42,7 @@ class EditTransaction extends React.Component {
             date: moment(this.props.date).format('DD-MM-YYYY'),
             accountName: this.props.accountName
         }
-        if (editTransaction(transaction, this.props.transactionClicked))
+        if (await editTransaction(transaction, this.props.transactionClicked))
             this.setState({ onEditTransaction: true })
         else
             this.setState({ onEditTransaction: false })
@@ -128,7 +124,7 @@ class EditTransaction extends React.Component {
                     />
                 </div>
 
-                <button onClick={this.handleEditTransaction} to="/accounts" className="AddTranscButton" style={{ marginLeft: "50px",width:"200px" , height:"50px" }}> Edit Transaction</button>
+                <button onClick={this.handleEditTransaction} to="/accounts" className="AddTranscButton" style={{ marginLeft: "50px",width:"200px" , height:"50px",cursor:"pointer" }}> Edit Transaction</button>
                 {this.state.onEditTransaction ? <Redirect to='/accounts'></Redirect> : null}
             </div>
 

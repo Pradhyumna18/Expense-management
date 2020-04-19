@@ -3,33 +3,32 @@ import { deleteTransaction, getTransactionByAccountName } from '../../services/t
 import { getAccountBalance } from '../../services/accounts'
 import { Link } from 'react-router-dom'
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { getAccountNameById } from '../../services/accounts';
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import './transactions.css'
 import moment from 'moment'
 import Toast from 'light-toast'
 class SpecificAccountTransaction extends React.Component {
-    state={
-        accountBalance:null,
-        transaction:[],
-        accountName:''
+    state = {
+        accountBalance: null,
+        transaction: [],
+        accountName: ''
     }
     handleDelete = async (transactionId) => {
         await deleteTransaction(transactionId)
-        this.setState({})
+        let trans = await getTransactionByAccountName(this.props.accountClicked)
+        await this.setState({ transaction: trans })
+        let accBalance = await getAccountBalance(this.props.accountClicked)
+        await this.setState({ accountBalance: accBalance })
         Toast.success("transaction deleted successfully", 500)
     }
-   async componentWillMount(){
-       console.log(this.props.accountClicked)
-        let accBalance=await getAccountBalance(this.props.accountClicked)
-        await this.setState({accountBalance:accBalance})
-        let trans=await getTransactionByAccountName(this.props.accountClicked)
-        await this.setState({transaction:trans})
-        console.log(this.state.transaction)
-        
+    async componentWillMount() {
+        let accBalance = await getAccountBalance(this.props.accountClicked)
+        await this.setState({ accountBalance: accBalance })
+        let trans = await getTransactionByAccountName(this.props.accountClicked)
+        await this.setState({ transaction: trans })
     }
-   
+
     render() {
         return (
             <div>
@@ -49,7 +48,7 @@ class SpecificAccountTransaction extends React.Component {
                         <div> {obj.description}</div>
                         <div>{moment(obj.date).format('DD-MM-YYYY')}</div>
                         <div> {obj.amount}</div>
-                        <MdDelete onClick={() => this.handleDelete(obj.id)} style={{cursor:"pointer"}}/>
+                        <MdDelete onClick={() => this.handleDelete(obj.id)} style={{ cursor: "pointer" }} />
                         <Link onClick={() => { this.props.onEditTransaction(obj.id) }} to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
                     </div>
                 }) : <h1>No Recent transactions</h1>}
