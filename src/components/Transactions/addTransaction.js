@@ -1,7 +1,6 @@
 import React from 'react'
-import {  Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { addTransaction } from '../../services/transactions'
-import { getAccounts } from '../../services/accounts'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
@@ -9,17 +8,12 @@ import './transactions.css'
 import Toast from 'light-toast'
 class AddTransactions extends React.Component {
     state = {
-        accounts: [],
+
         onAddTransaction: false
     }
     async  componentWillMount() {
-        let transactionId = localStorage.getItem("transactionId");
-        if (!transactionId) {
-            localStorage.setItem("transactionId", 0)
 
-        }
-        let acc = await getAccounts()
-        await this.setState({ accounts: acc })
+        this.props.getAccounts()
         this.props.handleTransactionType('')
         this.props.handleAccountName('')
         this.props.handleDescription('')
@@ -42,10 +36,10 @@ class AddTransactions extends React.Component {
             }
         let onAddTransaction = await addTransaction(transaction)
         if (onAddTransaction) {
-          await  this.setState({ onAddTransaction: true })
+            this.setState({ onAddTransaction: true })
         }
         else
-            this.setState({onAddTransaction:false})
+            this.setState({ onAddTransaction: false })
         this.props.handleTransactionType('')
         this.props.handleAccountName('')
         this.props.handleDescription('')
@@ -97,7 +91,7 @@ class AddTransactions extends React.Component {
                         <br />
                         <select value={this.props.accountName} onChange={this.handleAccountName} className="InputField">
                             <option label="Select an Account "></option>
-                            {this.state.accounts.map(obj => {
+                            {this.props.accounts.map(obj => {
                                 return (<option label={obj.accountName}>{obj.accountName}</option>);
                             })}
                         </select>
@@ -121,7 +115,7 @@ class AddTransactions extends React.Component {
                         className="InputField"
                     />
                 </div>
-                <button onClick={this.handleAddTransaction}  className="AddTranscButton" style={{ marginLeft: "50px",width:"200px" , height:"50px",cursor:"pointer" }}> Add Transaction</button>
+                <button onClick={this.handleAddTransaction} className="AddTranscButton" style={{ marginLeft: "50px", width: "200px", height: "50px", cursor: "pointer" }}> Add Transaction</button>
                 {this.state.onAddTransaction ? <Redirect to='/accounts'></Redirect> : null}
             </div>
         )

@@ -1,31 +1,17 @@
 import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import { getTransactions } from '../../services/transactions'
 import TransactionDisplay from '../../containers/Transactions/transactionDisplay'
-import { getAccounts } from '../../services/accounts'
 import './accounts.css'
 class Accounts extends React.Component {
-    state = {
-        onDelete: false,
-        divClicked: "",
-        accounts: [],
-        transactions: []
-    }
+   
     async componentWillMount() {
-        let acc = await getAccounts()
-        await this.setState({ accounts: acc })
-        let trans = await getTransactions()
-        await this.setState({ transactions: trans })
-        this.setState({ onDelete: false })
+        this.props.getAccounts()
+        this.props.getTransactions()
     }
 
     handleDelete = async () => {
-        this.setState({ onDelete: true })
-        let acc = await getAccounts()
-        await this.setState({ accounts: acc })
-        let trans = await getTransactions()
-        await this.setState({ transactions: trans })
-        this.setState({ onDelete: false })
+        this.props.getAccounts()
+        this.props.getTransactions()
     }
     handleDivClicked = (name) => {
         this.props.handleDivClicked(name)
@@ -39,7 +25,7 @@ class Accounts extends React.Component {
                         <label style={{ fontWeight: "bold" }} >ACCOUNTS</label>
                     </div>
                     <div style={{ overflowX: "auto", display: "flex", border: "black" }} >
-                        {this.state.accounts.map(obj => {
+                        {this.props.accounts.map(obj => {
                             return (<div className="AccountCard" style={{ cursor: "pointer" }} onClick={() => { this.handleDivClicked(obj.accountName) }}>
                                 {obj.accountName}
                                 <b style={{ fontSize: "larger" }}> ₹ {obj.accountBalance} </b>
@@ -57,7 +43,7 @@ class Accounts extends React.Component {
                     </div>
                 </div>
                 <div style={{ marginLeft: "50px" }} >
-                    {this.state.transactions.length !== 0 ? this.state.transactions.map(item => {
+                    {this.props.transactions.length !== 0 ? this.props.transactions.map(item => {
                         return <TransactionDisplay onDelete={this.handleDelete}>{item}</TransactionDisplay>
                     }) : <h1>NO RECENT TRANSACTIONS</h1>}
                 </div>

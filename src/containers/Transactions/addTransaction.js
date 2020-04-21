@@ -1,6 +1,7 @@
 
 import addTransactions from '../../components/Transactions/addTransaction'
 import { connect } from 'react-redux'
+import {getAccounts} from '../../services/accounts'
 const mapStateToProps = (state) =>
     ({
         description: state.Transactions.description,
@@ -10,7 +11,8 @@ const mapStateToProps = (state) =>
         transactionType: state.Transactions.transactionType,
         accountClicked: state.Accounts.accountClicked,
         addedTransaction: false,
-        redirect:state.Accounts.redirect
+        redirect: state.Accounts.redirect,
+        accounts:state.Accounts.accounts
 
 
     })
@@ -50,7 +52,14 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({
                 type: "REDIRECT",
                 payload: value,
+            }),
+        getAccounts: async () => {
+            let accounts = await getAccounts()
+            dispatch({
+                type: "GETACCOUNTS",
+                payload: accounts,
             })
+        },
 
 
     }

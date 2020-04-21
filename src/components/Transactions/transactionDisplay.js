@@ -14,14 +14,12 @@ class TransactionDisplay extends React.Component {
     }
     handleDelete = async (transactionId) => {
         await deleteTransaction(transactionId)
-        let accName = await getAccountNameById(this.props.children.accountId)
-        await this.setState({ accountName: accName })
         this.props.onDelete()
         Toast.success("transaction deleted", 500)
     }
     async componentWillMount() {
         let accName = await getAccountNameById(this.props.children.accountId)
-        await this.setState({ accountName: accName, onDeleteTransaction: false })
+        this.setState({ accountName: accName, onDeleteTransaction: false })
     }
     async componentDidUpdate(prevProps) {
         if (prevProps.children.accountId !== this.props.children.accountId) {

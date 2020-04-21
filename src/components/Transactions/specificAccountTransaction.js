@@ -17,9 +17,9 @@ class SpecificAccountTransaction extends React.Component {
     handleDelete = async (transactionId) => {
         await deleteTransaction(transactionId)
         let trans = await getTransactionByAccountName(this.props.accountClicked)
-        await this.setState({ transaction: trans })
+        this.setState({ transaction: trans })
         let accBalance = await getAccountBalance(this.props.accountClicked)
-        await this.setState({ accountBalance: accBalance })
+        this.setState({ accountBalance: accBalance })
         Toast.success("transaction deleted successfully", 500)
     }
     async componentWillMount() {

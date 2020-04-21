@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { editTransaction, getTransactionByTransactionId } from '../../services/transactions'
-import { getAccounts, getAccountNameById } from '../../services/accounts'
+import { getAccountNameById } from '../../services/accounts'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
@@ -10,7 +10,6 @@ import moment from 'moment'
 import Toast from 'light-toast'
 class EditTransaction extends React.Component {
     state = {
-        accounts: [],
         onEditTransaction: false
     }
     async componentWillMount() {
@@ -30,8 +29,7 @@ class EditTransaction extends React.Component {
             this.props.handleAmount('')
             this.props.handleDate('')
         }
-        let acc = await getAccounts()
-        await this.setState({ accounts: acc })
+        this.props.getAccounts()
         this.setState({ onEditTransaction: false })
     }
     handleEditTransaction = async () => {
@@ -99,7 +97,7 @@ class EditTransaction extends React.Component {
                         <br />
                         <select value={this.props.accountName} onChange={this.handleAccountName} className="InputField">
                             <option label="Select an Account "></option>
-                            {this.state.accounts.map(obj => {
+                            {this.props.accounts.map(obj => {
                                 return (<option label={obj.accountName}>{obj.accountName}</option>);
                             })}
                         </select>

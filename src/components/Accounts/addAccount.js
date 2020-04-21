@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { addAccount } from '../../services/accounts'
 import './accounts.css'
 import Toast from 'light-toast'

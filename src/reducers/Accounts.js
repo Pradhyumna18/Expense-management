@@ -2,9 +2,10 @@ const initialState = {
     accountName: '',
     accountBalance: 0,
     addedAccount: false,
-    redirect: '',
     accountClicked: null,
-    divClicked:null
+    divClicked: null,
+    accounts:[],
+    transactions:[]
 }
 
 const accountsReducer = (state = initialState, action) => {
@@ -28,16 +29,22 @@ const accountsReducer = (state = initialState, action) => {
                 addedAccount: action.payload
             }
         }
-        case "REDIRECT": {
-            return {
-                ...state,
-                redirect: action.payload
-            }
-        }
         case "DIVCLICKED": {
             return {
                 ...state,
                 accountClicked: action.payload
+            }
+        }
+        case "GETACCOUNTS": {
+            return {
+                ...state,
+                accounts: action.payload
+            }
+        }
+        case "GETTRANSACTIONS": {
+            return {
+                ...state,
+                transactions: action.payload
             }
         }
         case "ONDIVCLICK": {

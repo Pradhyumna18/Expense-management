@@ -1,11 +1,15 @@
 
 import Accounts from '../../components/Accounts/accounts'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import { getAccounts } from '../../services/accounts'
+import { getTransactions } from '../../services/transactions'
 const mapStateToProps = (state) =>
     ({
-       accountClicked:state.Accounts.accountClicked,
-       divClicked:false,
-       redirect:state.Accounts.redirect
+        accountClicked: state.Accounts.accountClicked,
+        divClicked: false,
+        redirect: state.Accounts.redirect,
+        accounts: state.Accounts.accounts,
+        transactions: state.Accounts.transactions
     })
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -14,16 +18,25 @@ const mapDispatchToProps = (dispatch) => {
                 type: "DIVCLICKED",
                 payload: value
             }),
-            onDivClicked: (value) =>
+        onDivClicked: (value) =>
             dispatch({
                 type: "ONDIVCLICK",
                 payload: value
             }),
-            toRedirect: (value) =>
+        getAccounts: async () => {
+            let accounts = await getAccounts()
             dispatch({
-                type: "REDIRECT",
-                payload: value,
+                type: "GETACCOUNTS",
+                payload: accounts,
             })
+        },
+        getTransactions: async () => {
+            let transactions= await getTransactions()
+            dispatch({
+                type: "GETTRANSACTIONS",
+                payload: transactions,
+            })
+        }
 
     }
 }

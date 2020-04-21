@@ -1,6 +1,7 @@
 
 import editTransactions from '../../components/Transactions/editTransaction'
 import { connect } from 'react-redux'
+import {getAccounts} from '../../services/accounts'
 const mapStateToProps = (state) =>
     ({
         description: state.Transactions.description,
@@ -8,7 +9,8 @@ const mapStateToProps = (state) =>
         amount: state.Transactions.amount,
         accountName: state.Transactions.accountName,
         transactionType: state.Transactions.transactionType,
-        transactionClicked:state.Transactions.transactionClicked
+        transactionClicked: state.Transactions.transactionClicked,
+        accounts: state.Accounts.accounts
 
     })
 const mapDispatchToProps = (dispatch) => {
@@ -38,6 +40,13 @@ const mapDispatchToProps = (dispatch) => {
                 type: "HANDLEACCOUNTNAME",
                 payload: value
             }),
+        getAccounts: async () => {
+            let accounts = await getAccounts()
+            dispatch({
+                type: "GETACCOUNTS",
+                payload: accounts,
+            })
+        },
 
     }
 }
