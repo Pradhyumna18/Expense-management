@@ -2,6 +2,8 @@
 import addTransactions from '../../components/Transactions/addTransaction'
 import { connect } from 'react-redux'
 import {getAccounts} from '../../services/accounts'
+import {handleTransactionType,handleDescription,handleDate,handleAccountName,handleAmount,addTransaction} from '../../actions/transactionsActionConstants'
+import { getAccount } from '../../actions/accountsActionConstants'
 const mapStateToProps = (state) =>
     ({
         description: state.Transactions.description,
@@ -20,43 +22,38 @@ const mapDispatchToProps = (dispatch) => {
     return {
         handleTransactionType: (value) =>
             dispatch({
-                type: "HANDLETRANSACTIONTYPE",
+                type: handleTransactionType,
                 payload: value
             }),
         handleDescription: (value) =>
             dispatch({
-                type: "HANDLEDESCRIPTION",
+                type: handleDescription,
                 payload: value
             }),
         handleDate: (value) =>
             dispatch({
-                type: "HANDLEDATE",
+                type: handleDate,
                 payload: value
             }),
         handleAmount: (value) =>
             dispatch({
-                type: "HANDLEAMOUNT",
+                type: handleAmount,
                 payload: value
             }),
         handleAccountName: (value) =>
             dispatch({
-                type: "HANDLEACCOUNTNAME",
+                type: handleAccountName,
                 payload: value
             }),
         onAddTransaction: (value) =>
             dispatch({
-                type: "ONADDTRANSACTION",
+                type: addTransaction,
                 payload: value
-            }),
-        toRedirect: (value) =>
-            dispatch({
-                type: "REDIRECT",
-                payload: value,
             }),
         getAccounts: async () => {
             let accounts = await getAccounts()
             dispatch({
-                type: "GETACCOUNTS",
+                type: getAccount,
                 payload: accounts,
             })
         },

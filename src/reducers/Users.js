@@ -1,27 +1,35 @@
+import { userNameChange, passwordChange, onSignin } from '../actions/userActionConstants'
 const initialState = {
     userName: "",
     password: "",
     userId: "",
     token: null,
+    signUpToggle:false
 }
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "USERNAMECHANGE": {
+        case userNameChange: {
             return {
                 ...state,
                 userName: action.payload
             }
         }
 
-        case "PASSWORDCHANGE": {
+        case passwordChange: {
             return {
                 ...state,
                 password: action.payload
             }
         }
-
-        case "SET_TOKEN": {
+        case "SIGN_UP": {
+            console.log(action.payload)
+            return {
+                ...state,
+                signUpToggle: action.payload,
+            }
+        }
+        case onSignin: {
             return {
                 ...state,
                 token: action.payload.token,

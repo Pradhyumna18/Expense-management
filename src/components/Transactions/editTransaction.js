@@ -66,9 +66,6 @@ class EditTransaction extends React.Component {
     handleDate = (date) => {
         this.props.handleDate(date)
     }
-    componentDidMount() {
-
-    }
     render() {
         return (
             <div style={{ textAlign: "left", marginLeft: "50px" }}>

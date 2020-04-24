@@ -2,6 +2,8 @@
 import editTransactions from '../../components/Transactions/editTransaction'
 import { connect } from 'react-redux'
 import {getAccounts} from '../../services/accounts'
+import {handleTransactionType,handleDescription,handleDate,handleAccountName,handleAmount,getAccount} from '../../actions/transactionsActionConstants'
+
 const mapStateToProps = (state) =>
     ({
         description: state.Transactions.description,
@@ -17,33 +19,33 @@ const mapDispatchToProps = (dispatch) => {
     return {
         handleTransactionType: (value) =>
             dispatch({
-                type: "HANDLETRANSACTIONTYPE",
+                type: handleTransactionType,
                 payload: value
             }),
         handleDescription: (value) =>
             dispatch({
-                type: "HANDLEDESCRIPTION",
+                type: handleDescription,
                 payload: value
             }),
         handleDate: (value) =>
             dispatch({
-                type: "HANDLEDATE",
+                type: handleDate,
                 payload: value
             }),
         handleAmount: (value) =>
             dispatch({
-                type: "HANDLEAMOUNT",
+                type: handleAmount,
                 payload: value
             }),
         handleAccountName: (value) =>
             dispatch({
-                type: "HANDLEACCOUNTNAME",
+                type: handleAccountName,
                 payload: value
             }),
         getAccounts: async () => {
             let accounts = await getAccounts()
             dispatch({
-                type: "GETACCOUNTS",
+                type: getAccount,
                 payload: accounts,
             })
         },

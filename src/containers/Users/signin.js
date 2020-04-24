@@ -3,6 +3,7 @@ import { verifyUser } from '../../services/users';
 import { localStorageSetItem } from '../../services/utils';
 import {connect} from 'react-redux'
 import Toast from 'light-toast'
+import {userNameChange,passwordChange,onSignin} from '../../actions/userActionConstants'
 const mapStateToProps = (state) => ({
     userName: state.Users.userName,
     password: state.Users.password,
@@ -14,12 +15,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         userNameChange: (value) =>
             dispatch({
-                type: "USERNAMECHANGE",
+                type: userNameChange,
                 payload: value
             }),
         passwordChange: (value) =>
             dispatch({
-                type: "PASSWORDCHANGE",
+                type: passwordChange,
                 payload: value,
             }),
 
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
             localStorageSetItem("token", token);
 
             dispatch({
-                type: "SET_TOKEN",
+                type: onSignin,
                 payload: {
                     token: token ? token : null,
                 }

@@ -1,8 +1,9 @@
-
+import {divClicked,onDivClick,fetchTransaction} from '../../actions/accountsActionConstants'
 import Accounts from '../../components/Accounts/accounts'
 import { connect } from 'react-redux'
 import { getAccounts } from '../../services/accounts'
 import { getTransactions } from '../../services/transactions'
+import { getAccount } from '../../actions/accountsActionConstants'
 const mapStateToProps = (state) =>
     ({
         accountClicked: state.Accounts.accountClicked,
@@ -15,25 +16,26 @@ const mapDispatchToProps = (dispatch) => {
     return {
         handleDivClicked: (value) =>
             dispatch({
-                type: "DIVCLICKED",
+                type: divClicked,
                 payload: value
             }),
         onDivClicked: (value) =>
             dispatch({
-                type: "ONDIVCLICK",
+                type: onDivClick,
                 payload: value
             }),
         getAccounts: async () => {
+            console.log(getAccount)
             let accounts = await getAccounts()
             dispatch({
-                type: "GETACCOUNTS",
+                type: getAccount,
                 payload: accounts,
             })
         },
         getTransactions: async () => {
             let transactions= await getTransactions()
             dispatch({
-                type: "GETTRANSACTIONS",
+                type: fetchTransaction,
                 payload: transactions,
             })
         }

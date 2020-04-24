@@ -1,3 +1,5 @@
+import {accountNameChange,accountBalanceChange,addAccount,divClicked,onDivClick,fetchTransaction} from '../actions/accountsActionConstants'
+import {getAccount} from '../actions/transactionsActionConstants'
 const initialState = {
     accountName: '',
     accountBalance: 0,
@@ -10,44 +12,45 @@ const initialState = {
 
 const accountsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "ACCOUNTNAMECHANGE": {
+        case accountNameChange: {
             return {
                 ...state,
                 accountName: action.payload
             }
         }
 
-        case "ACCOUNTBALANCECHANGE": {
+        case accountBalanceChange: {
             return {
                 ...state,
                 accountBalance: action.payload
             }
         }
-        case "ONADDACCOUNT": {
+        case addAccount: {
             return {
                 ...state,
                 addedAccount: action.payload
             }
         }
-        case "DIVCLICKED": {
+        case divClicked: {
             return {
                 ...state,
                 accountClicked: action.payload
             }
         }
-        case "GETACCOUNTS": {
+        case getAccount: {
+            console.log(getAccount)
             return {
                 ...state,
                 accounts: action.payload
             }
         }
-        case "GETTRANSACTIONS": {
+        case fetchTransaction: {
             return {
                 ...state,
                 transactions: action.payload
             }
         }
-        case "ONDIVCLICK": {
+        case onDivClick: {
             return {
                 ...state,
                 divClicked: action.payload

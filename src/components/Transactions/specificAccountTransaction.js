@@ -24,9 +24,9 @@ class SpecificAccountTransaction extends React.Component {
     }
     async componentWillMount() {
         let accBalance = await getAccountBalance(this.props.accountClicked)
-        await this.setState({ accountBalance: accBalance })
+        this.setState({ accountBalance: accBalance })
         let trans = await getTransactionByAccountName(this.props.accountClicked)
-        await this.setState({ transaction: trans })
+        this.setState({ transaction: trans })
     }
 
     render() {
@@ -47,9 +47,9 @@ class SpecificAccountTransaction extends React.Component {
                         <div>   {obj.transactionType}</div>
                         <div> {obj.description}</div>
                         <div>{moment(obj.date).format('DD-MM-YYYY')}</div>
-                        <div> {obj.amount}</div>
+                        <div> ₹ {obj.amount.toLocaleString('en-IN')}</div>
                         <MdDelete onClick={() => this.handleDelete(obj.id)} style={{ cursor: "pointer" }} />
-                        <Link onClick={() => { this.props.onEditTransaction(obj.id) }} to={`/accounts/edittransaction/${obj.transactionId}`}><FiEdit style={{ color: "black" }} /></Link>
+                        <Link onClick={() => { this.props.onEditTransaction(obj.id) }} to={`/accounts/edittransaction/${obj.id}`}><FiEdit style={{ color: "black" }} /></Link>
                     </div>
                 }) : <h1>No Recent transactions</h1>}
             </div>

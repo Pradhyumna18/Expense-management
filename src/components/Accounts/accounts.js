@@ -28,7 +28,7 @@ class Accounts extends React.Component {
                         {this.props.accounts.map(obj => {
                             return (<div className="AccountCard" style={{ cursor: "pointer" }} onClick={() => { this.handleDivClicked(obj.accountName) }}>
                                 {obj.accountName}
-                                <b style={{ fontSize: "larger" }}> ₹ {obj.accountBalance} </b>
+                                <b style={{ fontSize: "larger" }}> ₹ {obj.accountBalance.toLocaleString('en-IN')} </b>
                             </div>)
                         })}
                         <div className="AccountCard">

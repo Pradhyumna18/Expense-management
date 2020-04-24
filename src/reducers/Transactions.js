@@ -1,3 +1,5 @@
+import {handleTransactionType,handleDescription,handleDate,handleAccountName,handleAmount,getAccount,editTransaction} from '../actions/transactionsActionConstants'
+
 const initialState = {
     transactionType: '',
     amount: null,
@@ -9,38 +11,44 @@ const initialState = {
 
 const transactionsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "HANDLETRANSACTIONTYPE": {
+        case handleTransactionType: {
             return {
                 ...state,
                 transactionType: action.payload
             }
         }
 
-        case "HANDLEAMOUNT": {
+        case handleAmount: {
             return {
                 ...state,
                 amount: action.payload
             }
         }
-        case "HANDLEDESCRIPTION": {
+        case handleDescription: {
             return {
                 ...state,
                 description: action.payload
             }
         }
-        case "HANDLEDATE": {
+        case handleDate: {
             return {
                 ...state,
                 date: action.payload
             }
         }
-        case "HANDLEACCOUNTNAME": {
+        case handleAccountName: {
             return {
                 ...state,
                 accountName: action.payload
             }
         }
-        case "EDITTRANSACTION": {
+        case getAccount: {
+            return {
+                ...state,
+                accounts: action.payload
+            }
+        }
+        case editTransaction: {
             return {
                 ...state,
                 transactionClicked: action.payload

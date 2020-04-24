@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { createUser } from '../../services/users';
-import { localStorageSetItem, localStorageGetItem } from '../../services/utils';
 import { Link, Redirect } from 'react-router-dom';
 import './signin.css'
 import Toast from 'light-toast'
 class Signup extends Component {
-    state = {
-        onSignup: false
+   
+    componentWillMount(){
+        this.props.toggle(false)
     }
     onUserNameChange = (event) => {
         this.props.userNameChange(event.target.value)
@@ -15,17 +15,12 @@ class Signup extends Component {
         this.props.passwordChange(event.target.value)
     }
     onSignup = async () => {
+ 
         let user = {
             userName: this.props.userName,
             password: this.props.password
         }
-       let bool=await createUser(user)
-       console.log(bool)
-        await this.setState({ onSignup: bool })
-        if (this.state.onSignup)
-           Toast.success("signup successful",500)
-        else
-            Toast.fail("username already exists",500)
+        this.props.onSignUp(user)
 
     }
     render() {
@@ -46,7 +41,7 @@ class Signup extends Component {
                         <button className="Button" onClick={this.onSignup} style={{cursor:"pointer"}}>SIGNUP</button>
                     </div>
                 </div>
-                {this.state.onSignup ? <Redirect to='/login'></Redirect> : <Redirect to='/signup'></Redirect>}
+                {this.props.signUpToggle ? <Redirect to='/login'></Redirect> : <Redirect to='/signup'></Redirect>}
             </div>
         );
     }

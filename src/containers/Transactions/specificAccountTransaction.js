@@ -1,6 +1,8 @@
 
 import specificAccountTransaction from '../../components/Transactions/specificAccountTransaction'
 import {connect} from 'react-redux'
+import {divClicked} from '../../actions/accountsActionConstants'
+import {editTransaction} from '../../actions/transactionsActionConstants'
 const mapStateToProps = (state) =>
     ({
        accountClicked:state.Accounts.accountClicked,
@@ -11,12 +13,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         handleDivClicked: (value) =>
             dispatch({
-                type: "DIVCLICKED",
+                type: divClicked,
                 payload: value
             }),
             onEditTransaction: (value) =>
             dispatch({
-                type: "EDITTRANSACTION",
+                type: editTransaction,
                 payload: value
             }),
     }
