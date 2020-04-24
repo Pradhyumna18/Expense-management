@@ -1,0 +1,27 @@
+.mainDivAddAcc{
+    margin-top: 10%;
+    text-align: center;
+    margin-left: 100px;
+}
+
+.newAccLabel{
+    font-size: 22px;
+    font-weight: bold; 
+}
+
+.elementsDiv{
+    margin: 15px;
+}
+
+.buttonDiv{
+    margin: 15px; 
+    
+}
+
+
+.InputField{
+    height:50px;
+    width: 300px;
+    border-radius: 5px;
+   
+}

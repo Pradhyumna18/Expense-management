@@ -18,7 +18,7 @@ class Signin extends Component {
     render() {
         return (
             <div>
-                <div style={{ marginTop: "18%" }}>
+                <div className="mainDivSign">
                     <h2>EXPENSE TRACKER</h2>
                     <div className="InputDivision">
                         <input type="text" placeholder="USERNAME" className="Input" onChange={this.onUserNameChange} />

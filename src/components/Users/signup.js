@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { createUser } from '../../services/users';
 import { Link, Redirect } from 'react-router-dom';
-import './signin.css'
+import './signup.css'
 import Toast from 'light-toast'
 class Signup extends Component {
-   
+
     componentWillMount(){
         this.props.toggle(false)
     }
@@ -15,18 +15,16 @@ class Signup extends Component {
         this.props.passwordChange(event.target.value)
     }
     onSignup = async () => {
- 
         let user = {
             userName: this.props.userName,
             password: this.props.password
         }
         this.props.onSignUp(user)
-
     }
     render() {
         return (
             <div>
-                <div style={{ marginTop: "18%" }}>
+                <div className="mainDivSign">
                     <h2>EXPENSE TRACKER</h2>
                     <div className="InputDivision">
                         <input type="text" placeholder="USERNAME" className="Input" onChange={this.onUserNameChange} />

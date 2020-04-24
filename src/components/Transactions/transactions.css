@@ -1,56 +1,21 @@
-.AccountCard{
-    height : 120px;
-    width : 200px;
-    background-color: aquamarine;
-    margin:25px;
-    font-size: 20px;
-    display:flex;
-    flex-direction:column;
-    justify-content: space-around;
-    flex-shrink: 0;
-}
 
 .TransactionItem{
     width: calc(75vh/6);
     flex-shrink: 0;
-}
-.AddTranscButton{
-    width:150px;
-    height:27px;
-    border-radius: 5px;
-    background-color: darkcyan;
-    color : azure;
-    font-size: larger;
-    text-decoration: none;
-    display: inline-block;
-    padding: 10px;
+    text-transform: capitalize;
 }
 
-.InputField{
-    height:50px;
-    width: 300px;
-    border-radius: 5px;
-   
-}
-.AccountCard{
-    height : 120px;
-    width : 200px;
-    background-color: #ffcce5;
-    margin:25px;
-    font-size: 20px;
-    display:flex;
-    flex-direction:column;
+.transactionCard{
+    height: 75px;
+    width: 75vw;
     justify-content: space-around;
-    flex-shrink: 0;
-}
+    display: flex;
+    font-size: 20px;
+    margin: 15px;
+    padding: 20px ;
+    box-shadow: 0 2px 3px #ccc;
+    border:1px solid #eee ;
+    box-sizing: border-box;
 
 
-.AddTransactionButton{
-    width:120px;
-    height:25px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    display: inline-block;
-    text-decoration: none;
-    padding: 10px;
 }

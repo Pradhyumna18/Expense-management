@@ -1,4 +1,4 @@
-import { userNameChange, passwordChange, onSignin } from '../actions/userActionConstants'
+import { userNameChange, passwordChange, onSignin,signup } from '../actions/userActionConstants'
 const initialState = {
     userName: "",
     password: "",
@@ -22,7 +22,7 @@ const userReducer = (state = initialState, action) => {
                 password: action.payload
             }
         }
-        case "SIGN_UP": {
+        case signup: {
             console.log(action.payload)
             return {
                 ...state,

@@ -5,8 +5,8 @@ import { FiEdit } from "react-icons/fi"
 import { MdDelete } from "react-icons/md"
 import './transactions.css'
 import { getAccountNameById } from '../../services/accounts'
-import Toast from 'light-toast'
-import moment from 'moment'
+import Toast from 'light-toast';
+import moment from 'moment';
 class TransactionDisplay extends React.Component {
     state = {
         accountName: '',
@@ -31,18 +31,17 @@ class TransactionDisplay extends React.Component {
     }
     render() {
         return (
-            <div style={{ height: "50px", width: "75vw", justifyContent: "space-between", display: "flex", border: "1px solid", fontSize: "20px", margin: "10px", padding: "20px" }}>
-                <div>   {this.props.children.transactionType}</div>
-                <div> {this.props.children.description}</div>
-                <div>{moment(this.props.children.date).format('DD-MM-YYYY')}</div>
-                <div>₹ {this.props.children.amount.toLocaleString('en-IN')}</div>
+            <div className="transactionCard" >
+                <div className="TransactionItem"> {this.props.children.transactionType}</div>
+                <div className="TransactionItem"> {this.props.children.description}</div>
+                <div className="TransactionItem"> {moment(this.props.children.date).format('DD-MM-YYYY')}</div>
+                <div className="TransactionItem"> ₹ {this.props.children.amount.toLocaleString('en-IN')}</div>
                 <div className="TransactionItem">{this.state.accountName}</div>
-                <MdDelete onClick={() => this.handleDelete(this.props.children.id)} style={{ cursor: "pointer" }} />
-                {console.log(this.props.children.id)}
+                <MdDelete onClick={async () => await this.handleDelete(this.props.children.id)} style={{ cursor: "pointer" }} />
                 <Link onClick={() => { this.props.onEditTransaction(this.props.children.id) }} to={`/accounts/edittransaction/${this.props.children.id}`}><FiEdit style={{ color: "black" }} /></Link>
-
+                {this.state.deleteTransaction ? <Redirect to="/accounts" /> : null}
             </div>
         )
     }
 }
-export default TransactionDisplay
+export default TransactionDisplay ;

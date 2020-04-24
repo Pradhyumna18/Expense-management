@@ -1,13 +1,14 @@
-import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
-import { editTransaction, getTransactionByTransactionId } from '../../services/transactions'
-import { getAccountNameById } from '../../services/accounts'
+import React from 'react';
+import {Redirect} from 'react-router-dom';
+import { editTransaction, getTransactionByTransactionId } from '../../services/transactions';
+import { getAccounts, getAccountNameById } from '../../services/accounts';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import './transactions.css'
+import './editTransaction.css';
+import'../../App.css'
+import Toast from 'light-toast';
 import moment from 'moment'
-import Toast from 'light-toast'
 class EditTransaction extends React.Component {
     state = {
         onEditTransaction: false
@@ -66,31 +67,31 @@ class EditTransaction extends React.Component {
     handleDate = (date) => {
         this.props.handleDate(date)
     }
-    render() {
+       render() {
         return (
-            <div style={{ textAlign: "left", marginLeft: "50px" }}>
+            <div className="mainDivEdit">
                 <h2> TRANSACTION</h2>
                 <input type="radio" value="income" checked={this.props.transactionType === "income"} style={{ margin: "5px" }} onChange={this.handleTransactionType} />
-                <label style={{ marginRight: "25px", fontWeight: "bold", fontSize: "large" }}>Income</label>
+                <label className="incomeLabel">Income</label>
                 <input type="radio" value="expense" checked={this.props.transactionType === "expense"} style={{ margin: "5px" }} onChange={this.handleTransactionType} />
-                <label style={{ fontWeight: "bold", fontSize: "large" }}>Expense</label>
+                <label className="label">Expense</label>
                 <div style={{ margin: "10px" }}>
-                    <label style={{ fontWeight: "bold", fontSize: "large" }}>Description</label>
+                    <label className="label">Description</label>
                     <br />
                     <input type="text" onChange={this.handleDescription} value={this.props.description} className="InputField"></input>
                 </div>
 
                 {this.props.accountClicked ?
-                    <div style={{ margin: "10px" }}>
-                        <label style={{ fontWeight: "bold", fontSize: "large" }}>Account</label>
+                    <div className="inputDiv">
+                        <label className="label">Account</label>
                         <br />
                         <select value={this.props.accountClicked} onChange={this.handleAccountName} className="InputField" disabled>
                             <option label={this.props.accountClicked} ></option>
                         </select>
                     </div>
                     :
-                    <div style={{ margin: "10px" }}>
-                        <label style={{ fontWeight: "bold", fontSize: "large" }}>Account</label>
+                    <div className="inputDiv">
+                        <label className="label">Account</label>
                         <br />
                         <select value={this.props.accountName} onChange={this.handleAccountName} className="InputField">
                             <option label="Select an Account "></option>
@@ -101,14 +102,14 @@ class EditTransaction extends React.Component {
                     </div>
                 }
 
-                <div style={{ margin: "10px" }}>
-                    <label style={{ fontWeight: "bold", fontSize: "large" }}>Amount</label>
+                <div className="inputDiv">
+                    <label className="label">Amount</label>
                     <br />
                     <input type="text" onChange={this.handleAmount} value={this.props.amount} className="InputField"></input>
                 </div>
 
-                <div style={{ margin: "10px" }}>
-                    <label style={{ fontWeight: "bold", fontSize: "large" }}>Date</label>
+                <div className="inputDiv">
+                    <label className="label">Date</label>
                     <br />
                     <DatePicker
                         dateFormat='dd-MM-yyyy'
@@ -119,10 +120,9 @@ class EditTransaction extends React.Component {
                     />
                 </div>
 
-                <button onClick={this.handleEditTransaction} to="/accounts" className="AddTranscButton" style={{ marginLeft: "50px",width:"200px" , height:"50px",cursor:"pointer" }}> Edit Transaction</button>
-                {this.state.onEditTransaction ? <Redirect to='/accounts'></Redirect> : null}
+                <button onClick={this.handleEditTransaction} className="Button-secondary" style={{ marginLeft: "50px" ,height:"50px" ,width:"200px"}}> Edit Transaction</button>
+                {this.state.onEditTransaction ? <Redirect to="/accounts" /> : null}
             </div>
-
         )
     }
 }

@@ -1,0 +1,42 @@
+.mainDiv{
+    display: flex;
+    height: 50px;
+    text-align:center;
+    padding-top:20px;
+    border-bottom: 2px solid;
+    border-bottom-color: #616161;
+    justify-content: space-between
+}
+
+.labelDiv{
+    text-align: left;
+    margin-left: 30px;
+     width: 200px 
+}
+
+.label{
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+.rightDiv{
+    text-align: right;
+    height: 35px;
+    width:200px;
+    right: 20px;
+    display: flex
+}
+
+.labelDiv2{
+    margin-right: 20px;
+     padding: 5px
+}
+
+.footer{
+    height:40px;
+    position :fixed;
+    left: 0px;
+    bottom: 0px;
+    width:100vw;
+    
+}

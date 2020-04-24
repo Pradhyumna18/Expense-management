@@ -1,15 +1,13 @@
 import Signup from '../../components/Users/signup'
 import { connect } from 'react-redux'
 import { createUser } from '../../services/users';
-import { userNameChange, passwordChange } from '../../actions/userActionConstants'
-import { MdCallToAction } from 'react-icons/md';
+import { userNameChange, passwordChange,signup } from '../../actions/userActionConstants'
 import Toast from 'light-toast'
 const mapStateToProps = (state) => ({
     userName: state.Users.userName,
     password: state.Users.password,
     signUpToggle: state.Users.signUpToggle
 })
-
 const mapDispatchToProps = (dispatch) => {
     return {
         userNameChange: (value) =>
@@ -22,7 +20,6 @@ const mapDispatchToProps = (dispatch) => {
                 type: "SIGN_UP",
                 payload: value,
             }),
-
         passwordChange: (value) =>
             dispatch({
                 type: passwordChange,
@@ -42,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
                 bool = await createUser(value)
                 if (bool) {
                     dispatch({
-                        type: "SIGN_UP",
+                        type: signup,
                         payload: bool,
                     })
                     Toast.success("signup successful", 500)
@@ -52,8 +49,6 @@ const mapDispatchToProps = (dispatch) => {
                 }
             }
         },
-
     }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);
