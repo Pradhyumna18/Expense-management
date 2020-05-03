@@ -3,8 +3,8 @@ import { deleteTransaction, getTransactionByAccountName } from '../../services/t
 import { getAccountBalance } from '../../services/accounts'
 import { Link } from 'react-router-dom'
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { FiEdit } from "react-icons/fi";
-import { MdDelete } from "react-icons/md";
+import { FiEdit } from "react-icons/fi"
+import { MdDelete } from "react-icons/md"
 import './specificAccountTransaction.css'
 import moment from 'moment'
 import Toast from 'light-toast'
@@ -16,8 +16,11 @@ class SpecificAccountTransaction extends React.Component {
         accountName: ''
     }
     handleDelete = async (transactionId) => {
-        deleteTransaction(transactionId)
-        this.setState({})
+        await deleteTransaction(transactionId)
+        let trans = await getTransactionByAccountName(this.props.accountClicked)
+        this.setState({ transaction: trans })
+        let accBalance = await getAccountBalance(this.props.accountClicked)
+        this.setState({ accountBalance: accBalance })
         Toast.success("transaction deleted successfully", 500)
     }
     async componentWillMount() {

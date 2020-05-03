@@ -12,6 +12,7 @@
     flex-direction:column;
     justify-content: space-around;
     flex-shrink: 0;
+    margin-left: 15px;
 }
 
 .accName{
@@ -20,11 +21,9 @@
 
 
 .buttonDiv{
-    margin-left: 50px;
-    margin-top: 10px;
-    margin-right: 1200px;
-    display: flex; 
-    flex-direction : column; 
+   text-align:left;
+   /* display: inline-block; */
+  
 }
 
 .transactionCard{
@@ -38,6 +37,7 @@
     box-shadow: 0 2px 3px #ccc;
     border:1px solid #eee ;
     box-sizing: border-box;
+    margin-top: 25px;
 
 }
 

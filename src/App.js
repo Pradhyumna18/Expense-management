@@ -21,7 +21,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Slab&display=swap" rel="stylesheet"></link>
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&family=Roboto+Slab&display=swap" rel="stylesheet"></link>
         <Router>
           {!token ?
 

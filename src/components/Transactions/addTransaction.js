@@ -39,6 +39,7 @@ class AddTransactions extends React.Component {
         let onAddTransaction = await addTransaction(transaction)
         if (onAddTransaction) {
             this.setState({ onAddTransaction: true })
+            Toast.success("added transaction successfully", 500)
         }
         else
             this.setState({ onAddTransaction: false })
@@ -47,7 +48,7 @@ class AddTransactions extends React.Component {
         this.props.handleDescription('')
         this.props.handleAmount('')
         this.props.handleDate('')
-        Toast.success("added transaction successfully", 500)
+       
 
     }
     handleTransactionType = (e) => {

@@ -29,8 +29,9 @@ class Dashboard extends Component {
                     <div className="labelDiv">
                         <label className="label">EXPENSE TRACKER</label>
                     </div>
+                    <div className="labelDiv2"><label style={{fontSize:"20px"}}>{this.username}</label></div>
                     <div className="rightDiv">
-                        <div className="labelDiv2"><label className="label">{this.username}</label></div>
+                        {/* <div className="labelDiv2"><label className="label">{this.username}</label></div> */}
                         <button onClick={this.handleLogout} style={{ backgroundColor: "red", cursor: "pointer", border: "none", color: "white", height: "30px", width: "150px", fontSize: "20px" }}>Logout</button>
                     </div>
                 </div>
