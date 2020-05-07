@@ -20,7 +20,7 @@ export const verifyUser = async (user) => {
             userName: user.userName,
             password: user.password
         })
-        if (res.data.success == false) {
+         if (res.data.success == false) {
             return false
         }
         else {
@@ -28,6 +28,7 @@ export const verifyUser = async (user) => {
         }
     }
     catch (err) {
+        console.log(err)
         return false
     }
 
