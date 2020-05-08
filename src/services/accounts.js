@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+
 import axios from 'axios'
 export const addAccount = async (accountName, accBalance) => {
     try {
@@ -21,7 +21,13 @@ export const addAccount = async (accountName, accBalance) => {
 }
 export const getAccounts = async () => {
     try {
-        let response = await axios.get('http://localhost:8000/getAccountsByUserId/'+JSON.parse(localStorage.getItem("token")))
+        console.log("get Accounts");
+        
+        let response = await axios.get('http://localhost:8000/getAccountsByUserId',{
+            headers: {
+              token:JSON.parse(localStorage.getItem("token"))
+            }
+          })
         return response.data.accounts
     }
     catch (err) {
@@ -33,7 +39,11 @@ export const getAccountBalance = async (accountName) => {
 
     try {
         accountName = window.location.pathname.substr(38)
-        let response = await axios.get('http://localhost:8000/getAccountBalance/' + JSON.parse(localStorage.getItem("token")) + '/' + accountName)
+        let response = await axios.get('http://localhost:8000/getAccountBalance/'  + accountName,{
+            headers: {
+              token:JSON.parse(localStorage.getItem("token"))
+            }
+          })
         return response.data.balance
     }
     catch (err) {

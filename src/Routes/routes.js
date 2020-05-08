@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import Accounts from '../containers/Accounts/accounts';
-import AddAccounts from '../containers/Accounts/addAccount';
-import AddTransaction from '../containers/Transactions/addTransaction';
-import SpecificAccount from '../containers/Transactions/specificAccountTransaction';
+import Accounts from '../components/Accounts/accounts';
+import AddAccounts from '../components/Accounts/addAccount';
+import AddTransaction from '../components/Transactions/addTransaction';
+import SpecificAccount from '../components/Transactions/specificAccountTransaction';
 import { connect } from 'react-redux';
 import { localStorageGetItem } from '../services/utils';
 import jwt from "jsonwebtoken";
 import './routes.css';
-import EditTransaction from '../containers/Transactions/editTransaction'
+import EditTransaction from '../components/Transactions/editTransaction'
 import Toast from 'light-toast'
 import { MdPersonOutline } from "react-icons/md";
 class Dashboard extends Component {

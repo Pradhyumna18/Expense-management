@@ -1,47 +1,47 @@
 import React from 'react'
 import { deleteTransaction } from '../../services/transactions'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FiEdit } from "react-icons/fi"
 import { MdDelete } from "react-icons/md"
 import './transactions.css'
+import {editTransaction} from '../../actions/transactionsActionConstants'
 import { getAccountNameById } from '../../services/accounts'
 import Toast from 'light-toast';
 import moment from 'moment';
-class TransactionDisplay extends React.Component {
-    state = {
-        accountName: '',
-        onDeleteTransaction: false
-    }
-    handleDelete = async (transactionId) => {
+import {useState,useEffect} from 'react'
+import {useDispatch} from 'react-redux'
+function TransactionDisplay(props) {
+    const dispatch=useDispatch()
+   const handleDelete = async (transactionId) => {
         await deleteTransaction(transactionId)
-        this.props.onDelete()
+        props.onDelete()
         Toast.success("transaction deleted", 500)
     }
-    async componentWillMount() {
-        let accName = await getAccountNameById(this.props.children.accountId)
-        this.setState({ accountName: accName, onDeleteTransaction: false })
+   
+   async function fetchAccountNameById(accountId) {
+
+         let accName = await getAccountNameById(props.children.accountId)
+         setAccountName(accName)
     }
-    async componentDidUpdate(prevProps) {
-        if (prevProps.children.accountId !== this.props.children.accountId) {
-            let accName = await getAccountNameById(this.props.children.accountId);
-            this.setState({
-                accountName: accName,
-            })
-        }
-    }
-    render() {
+        const [onDeleteTransaction,setOnDeleteTransaction]=useState(false)
+        const [accountName,setAccountName]=useState('')
+        useEffect(()=>{
+            fetchAccountNameById(props.children.accountId)
+            setOnDeleteTransaction(false)
+        },[props.children.accountId])
+    
         return (
             <div className="transactionCard" >
-                <div className="TransactionItem"> {this.props.children.transactionType}</div>
-                <div className="TransactionItem"> {this.props.children.description}</div>
-                <div className="TransactionItem"> {moment(this.props.children.date).format('DD-MM-YYYY')}</div>
-                <div className="TransactionItem"> ₹ {this.props.children.amount.toLocaleString('en-IN')}</div>
-                <div className="TransactionItem">{this.state.accountName}</div>
-                <MdDelete onClick={async () => await this.handleDelete(this.props.children.id)} style={{ cursor: "pointer" }} />
-                <Link onClick={() => { this.props.onEditTransaction(this.props.children.id) }} to={`/accounts/edittransaction/${this.props.children.id}`}><FiEdit style={{ color: "black" }} /></Link>
-                {this.state.deleteTransaction ? <Redirect to="/accounts" /> : null}
+                <div className="TransactionItem"> {props.children.transactionType}</div>
+                <div className="TransactionItem"> {props.children.description}</div>
+                <div className="TransactionItem"> {moment(props.children.date).format('DD-MM-YYYY')}</div>
+                <div className="TransactionItem"> ₹ {props.children.amount.toLocaleString('en-IN')}</div>
+                <div className="TransactionItem">{accountName}</div>
+                <MdDelete onClick={async () => await handleDelete(props.children.id)} style={{ cursor: "pointer" }} />
+                <Link onClick={() => { dispatch(editTransaction(props.children.id) )}} to={`/accounts/edittransaction/${props.children.id}`}><FiEdit style={{ color: "black" }} /></Link>
+    
             </div>
         )
-    }
+    
 }
 export default TransactionDisplay ;

@@ -1,8 +1,19 @@
-export const handleTransactionType="HANDLE_TRANSACTION_TYPE"
-export const handleDate="HANDLE_DATE"
-export const handleDescription="HANDLE_DESCRIPTION"
-export const handleAmount="HANDLE_AMOUNT"
-export const handleAccountName="HANDLE_ACCOUNT_NAME"
-export const addTransaction="ADD_TRANSACTION" 
-export const getAccount="GET_ACCOUNTS"
-export const editTransaction="EDIT_TRANSACTION"
+
+export const onEditTransaction="EDIT_TRANSACTION";
+export const getTransactions="GET_TRANSACTION"
+
+
+export const fetchTransactions = (transactions) => {
+    return {
+        type: getTransactions,
+        payload: transactions,
+    }
+}
+
+export const editTransaction=(value)=>{
+   
+    return {
+        type: onEditTransaction,
+        payload: value
+    }
+}

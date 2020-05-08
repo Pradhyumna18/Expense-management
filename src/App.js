@@ -8,7 +8,7 @@ import {
   Switch
 } from 'react-router-dom';
 import Signin from './containers/Users/signin';
-import Signup from './containers/Users/signup';
+import Signup from './components/Users/signup';
 import Dashboard from './Routes/routes';
 
 import { localStorageGetItem } from './services/utils';

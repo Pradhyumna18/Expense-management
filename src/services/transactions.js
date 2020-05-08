@@ -27,7 +27,11 @@ export const addTransaction = async (transaction) => {
 export const getTransactions = async () => {
 
     try {
-        let response = await axios.get('http://localhost:8000/getTransactions/' + JSON.parse(localStorage.getItem("token")))
+        let response = await axios.get('http://localhost:8000/getTransactions',{
+            headers: {
+              token:JSON.parse(localStorage.getItem("token"))
+            }
+          })
         return response.data.transactions
     }
     catch (err) {
@@ -41,7 +45,11 @@ export const getTransactions = async () => {
 export const getTransactionByAccountName = async (accountName) => {
     try {
         accountName = window.location.pathname.substr(38)
-        let response = await axios.get('http://localhost:8000/getTransactionsByAccountName/' + JSON.parse(localStorage.getItem("token")) + '/' + accountName)
+        let response = await axios.get('http://localhost:8000/getTransactionsByAccountName/'  + accountName,{
+            headers: {
+              token:JSON.parse(localStorage.getItem("token"))
+            }
+          })
         return response.data.transactions
     }
     catch (err) {

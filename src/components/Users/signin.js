@@ -1,48 +1,59 @@
-import React, { Component } from 'react';
+
+import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import './signin.css';
-import Toast from 'light-toast'
-class Signin extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            onSignin: false,
+import Toast from 'light-toast';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    usernameChangeHandler,
+    passwordChangeHandler,
+    signin
+} from '../../actions/userActionConstants';
+import {localStorageSetItem} from '../../services/utils';
+import {verifyUser} from '../../services/users';
+function Signin() {
+    const dispatch = useDispatch();
+    const userName = useSelector(state => state.Users.userName);
+    const password = useSelector(state => state.Users.password);
+    const token = useSelector(state => state.Users.token)
+    const onUserNameChange = (event) => {
+      
+        dispatch(usernameChangeHandler(event.target.value))
+    }
+    const onPasswordChange = (event) => {
+       
+        dispatch(passwordChangeHandler(event.target.value))
+    }
+    const onSignin = async () => {
+        let user ={
+            userName,
+            password
         }
+        let token = await verifyUser(user)
+        if (!token)
+            Toast.fail("signin failed", 500)
+        localStorageSetItem("token", token);
+        dispatch(signin(token))
     }
-    onUserNameChange = (event) => {
-        this.props.userNameChange(event.target.value)
-    }
-    onPasswordChange = (event) => {
-        this.props.passwordChange(event.target.value)
-    }
-    render() {
-        return (
-            <div>
-                <div className="mainDivSign">
-                    <h2>EXPENSE TRACKER</h2>
-                    <div className="InputDivision">
-                        <input type="text" placeholder="USERNAME" className="Input" onChange={this.onUserNameChange} />
-                    </div>
-                    <div className="InputDivision">
-                        <input type="password" placeholder="PASSWORD" className="Input" onChange={this.onPasswordChange} />
-                    </div>
-                    <div className="InputDivision">
-                        <Link to="/signup">Does not have an account ? Register here</Link>
-                    </div>
-                    <div className="InputDivision">
-                        <button className="Button" onClick={() => {
-                            this.props.onSignin({
-                                userName: this.props.userName,
-                                password: this.props.password,
-                            })
-                        }} style={{cursor:"pointer"}}>SIGNIN</button>
-                    </div>
-                    {this.props.token ? <Redirect to='/accounts' /> : null}
+    return (
+        <div>
+            <div className="mainDivSign">
+                <h2>EXPENSE TRACKER</h2>
+                <div className="InputDivision">
+                    <input type="text" placeholder="USERNAME" className="Input" onChange={onUserNameChange} />
                 </div>
-
+                <div className="InputDivision">
+                    <input type="password" placeholder="PASSWORD" className="Input" onChange={onPasswordChange} />
+                </div>
+                <div className="InputDivision">
+                    <Link to="/signup">Does not have an account ? Register here</Link>
+                </div>
+                <div className="InputDivision">
+                    <button className="Button" onClick={onSignin} style={{ cursor: "pointer" }}>SIGNIN</button>
+                </div>
+                {token ? <Redirect to='/accounts' /> : null}
             </div>
-        );
-    }
+        </div>
+    );
 }
-
 export default Signin

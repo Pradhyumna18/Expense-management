@@ -2,7 +2,6 @@ import { userNameChange, passwordChange, onSignin,signup } from '../actions/user
 const initialState = {
     userName: "",
     password: "",
-    userId: "",
     token: null,
     signUpToggle:false
 }
@@ -23,7 +22,7 @@ const userReducer = (state = initialState, action) => {
             }
         }
         case signup: {
-            console.log(action.payload)
+            
             return {
                 ...state,
                 signUpToggle: action.payload,
