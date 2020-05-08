@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useState } from 'react'
 import { addAccount } from '../../services/accounts';
 import './addAccount.css';
 import Toast from 'light-toast';

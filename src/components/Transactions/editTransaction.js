@@ -23,9 +23,11 @@ function EditTransaction() {
     const accountClicked = useSelector(state => state.Accounts.accountClicked)
     const transactionClicked = useSelector(state => state.Transactions.transactionClicked)
     const dispatch = useDispatch()
+
     useEffect(() => {
         transactionsClicked(transactionClicked)
     }, [transactionClicked])
+    
     async function transactionsClicked() {
         if (transactionClicked) {
             let obj = await getTransactionByTransactionId(transactionClicked)

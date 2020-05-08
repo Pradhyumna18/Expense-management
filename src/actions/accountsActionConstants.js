@@ -8,8 +8,6 @@ export const fetchAccounts = (accounts) => {
     }
 }
 export const divClicked = (name) => {
-    console.log(name);
-    
     return {
         type:onDivClicked,
         payload: name,

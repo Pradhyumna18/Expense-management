@@ -5,28 +5,24 @@ import { Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './signup.css'
 import Toast from 'light-toast';
-import {
-    usernameChangeHandler,
-    passwordChangeHandler,
-    signUp
-} from '../../actions/userActionConstants';
+import { usernameChangeHandler, passwordChangeHandler, signUp } from '../../actions/userActionConstants';
 function Signup() {
     const userName = useSelector(state => state.Users.userName);
     const password = useSelector(state => state.Users.password);
     const signUpToggle = useSelector(state => state.Users.signUpToggle);
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         dispatch(signUp(false))
     }, [])
     const onUserNameChange = (event) => {
-        
         dispatch(usernameChangeHandler(event.target.value))
     }
+
     const onPasswordChange = (event) => {
-       
         dispatch(passwordChangeHandler(event.target.value))
     }
+
     const onSignup = async () => {
         let user = {
             userName: userName,
@@ -41,6 +37,7 @@ function Signup() {
             Toast.fail("User already exist!", 500)
         }
     }
+    
     return (
         <div>
             <div className="mainDivSign">

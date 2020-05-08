@@ -21,11 +21,11 @@ export const addAccount = async (accountName, accBalance) => {
 }
 export const getAccounts = async () => {
     try {
-        console.log("get Accounts");
-        
+        let token=JSON.parse(localStorage.getItem("token"))
+        console.log(token)
         let response = await axios.get('http://localhost:8000/getAccountsByUserId',{
             headers: {
-              token:JSON.parse(localStorage.getItem("token"))
+              Authorization:token
             }
           })
         return response.data.accounts
@@ -39,9 +39,10 @@ export const getAccountBalance = async (accountName) => {
 
     try {
         accountName = window.location.pathname.substr(38)
+        let token=JSON.parse(localStorage.getItem("token"))
         let response = await axios.get('http://localhost:8000/getAccountBalance/'  + accountName,{
             headers: {
-              token:JSON.parse(localStorage.getItem("token"))
+                Authorization:token
             }
           })
         return response.data.balance

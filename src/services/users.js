@@ -1,5 +1,7 @@
 
 import axios from 'axios'
+
+
 export const createUser = async (user) => {
     try {
         let res = await axios.post('http://localhost:8000/signup', {
@@ -20,7 +22,7 @@ export const verifyUser = async (user) => {
             userName: user.userName,
             password: user.password
         })
-         if (res.data.success == false) {
+        if (res.data.success == false) {
             return false
         }
         else {
@@ -28,7 +30,6 @@ export const verifyUser = async (user) => {
         }
     }
     catch (err) {
-        console.log(err)
         return false
     }
 

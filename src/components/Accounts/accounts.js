@@ -10,15 +10,14 @@ import { getAccounts } from '../../services/accounts';
 import { fetchAccounts, divClicked } from '../../actions/accountsActionConstants'
 import { getTransactions } from '../../services/transactions';
 import { fetchTransactions } from '../../actions/transactionsActionConstants'
+
+
 function Accounts() {
     const accounts = useSelector(state => state.Accounts.accounts)
     const transactions = useSelector(state => state.Accounts.transactions)
     const accountClicked = useSelector(state => state.Accounts.accountClicked)
-    console.log((accountClicked));
-
     const dispatch = useDispatch()
     let backgroundColors = [["#f7d1ab", "#f5a85b"], ["#5bf5c4", "#abf7df"], ["#a9edf5", "#66eafa"], ["#b1a5fa", "#7c67f5"], ["#e5a5fa", "#d76efa"], ["#f5a4da", "#f069c3"]]
-
 
     const handleDelete = async () => {
         let accounts = await getAccounts()
@@ -28,12 +27,10 @@ function Accounts() {
     }
 
     const handleDivClicked = (name) => {
-        console.log(name)
         dispatch(divClicked(name))
     }
     async function getUserAccounts() {
         let accounts = await getAccounts()
-        console.log(accounts)
         dispatch(fetchAccounts(accounts))
     }
     async function getUserTransactions() {

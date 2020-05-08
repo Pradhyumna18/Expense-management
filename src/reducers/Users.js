@@ -14,7 +14,6 @@ const userReducer = (state = initialState, action) => {
                 userName: action.payload
             }
         }
-
         case passwordChange: {
             return {
                 ...state,
@@ -32,12 +31,6 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: action.payload.token,
-            }
-        }
-        case "REMOVE_TOKEN": {
-            return {
-                ...state,
-                token: "",
             }
         }
 

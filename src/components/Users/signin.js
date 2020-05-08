@@ -4,28 +4,25 @@ import { Link, Redirect } from 'react-router-dom';
 import './signin.css';
 import Toast from 'light-toast';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    usernameChangeHandler,
-    passwordChangeHandler,
-    signin
-} from '../../actions/userActionConstants';
-import {localStorageSetItem} from '../../services/utils';
-import {verifyUser} from '../../services/users';
+import { usernameChangeHandler, passwordChangeHandler, signin } from '../../actions/userActionConstants';
+import { localStorageSetItem } from '../../services/utils';
+import { verifyUser } from '../../services/users';
 function Signin() {
     const dispatch = useDispatch();
     const userName = useSelector(state => state.Users.userName);
     const password = useSelector(state => state.Users.password);
     const token = useSelector(state => state.Users.token)
+
     const onUserNameChange = (event) => {
-      
         dispatch(usernameChangeHandler(event.target.value))
     }
+
     const onPasswordChange = (event) => {
-       
         dispatch(passwordChangeHandler(event.target.value))
     }
+
     const onSignin = async () => {
-        let user ={
+        let user = {
             userName,
             password
         }
@@ -35,6 +32,7 @@ function Signin() {
         localStorageSetItem("token", token);
         dispatch(signin(token))
     }
+    
     return (
         <div>
             <div className="mainDivSign">

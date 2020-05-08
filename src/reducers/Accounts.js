@@ -1,5 +1,5 @@
 import {onDivClicked,getAccounts} from '../actions/accountsActionConstants'
-
+import {getTransactions} from '../actions/transactionsActionConstants'
 const initialState = {
     accountClicked: null,
     accounts:[],
@@ -21,7 +21,7 @@ const accountsReducer = (state = initialState, action) => {
                 accounts: action.payload
             }
         }
-        case "GET_TRANSACTION": {
+        case getTransactions: {
             return {
                 ...state,
                 transactions: action.payload

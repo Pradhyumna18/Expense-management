@@ -1,5 +1,6 @@
-import jwt from 'jsonwebtoken'
+
 import axios from 'axios'
+
 export const addTransaction = async (transaction) => {
     try {
         let res = await axios.post('http://localhost:8000/addTransaction', {
@@ -27,15 +28,15 @@ export const addTransaction = async (transaction) => {
 export const getTransactions = async () => {
 
     try {
-        let response = await axios.get('http://localhost:8000/getTransactions',{
+        let token = JSON.parse(localStorage.getItem("token"))
+        let response = await axios.get('http://localhost:8000/getTransactions', {
             headers: {
-              token:JSON.parse(localStorage.getItem("token"))
+                Authorization: token
             }
-          })
+        })
         return response.data.transactions
     }
     catch (err) {
-        console.log(false)
         return false
     }
 }
@@ -45,11 +46,12 @@ export const getTransactions = async () => {
 export const getTransactionByAccountName = async (accountName) => {
     try {
         accountName = window.location.pathname.substr(38)
-        let response = await axios.get('http://localhost:8000/getTransactionsByAccountName/'  + accountName,{
+        let token = JSON.parse(localStorage.getItem("token"))
+        let response = await axios.get('http://localhost:8000/getTransactionsByAccountName/' + accountName, {
             headers: {
-              token:JSON.parse(localStorage.getItem("token"))
+                Authorization: token
             }
-          })
+        })
         return response.data.transactions
     }
     catch (err) {
@@ -83,8 +85,7 @@ export const deleteTransaction = async (transactionId) => {
 export const editTransaction = async (transaction, transId) => {
 
     try {
-       // let payload = jwt.decode(JSON.parse(localStorage.getItem("token")))
-        let res = await axios.put('http://localhost:8000/editTransaction', {
+        await axios.put('http://localhost:8000/editTransaction', {
             transactionType: transaction.transactionType,
             description: transaction.description,
             amount: transaction.amount,
