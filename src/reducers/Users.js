@@ -2,7 +2,7 @@ import { userNameChange, passwordChange, onSignin,signup } from '../actions/user
 const initialState = {
     userName: "",
     password: "",
-    token: null,
+    token: JSON.parse(localStorage.getItem('token')),
     signUpToggle:false
 }
 

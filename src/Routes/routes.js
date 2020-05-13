@@ -16,8 +16,8 @@ function Dashboard(props) {
     const [username, setUserName] = useState('')
     const dispatch = useDispatch()
     const handleLogout = () => {
-        dispatch(signin(null))
         localStorage.removeItem("token")
+        dispatch(signin(null))
         Toast.success("logout successful", 500)
     }
     useEffect(() => {

@@ -19,7 +19,7 @@ export const signin = (token) => {
     return {
         type: onSignin,
         payload: {
-            token: token ? token : null,
+            token: token ,
         }
     }
 }
